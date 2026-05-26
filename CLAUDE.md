@@ -79,7 +79,7 @@
 | D5: LLM 엔진 | Phase 2 | GPT-4o vs Upstage Solar |
 | D6: 에이전트 오케스트레이션 | Phase 2 | LangChain4j vs LangGraph |
 
-**현재 상태**: D1 확정 대기 → Phase 0 시작
+**현재 상태**: ✅ D1 확정 (2026-05-26) → Phase 0 완료, Phase 1 진입 준비
 
 ---
 
@@ -99,16 +99,16 @@
 
 ---
 
-## ✅ Phase 0 검증 체크리스트
+## ✅ Phase 0 검증 체크리스트 (완료 2026-05-26)
 
-- [ ] Gradle 빌드 성공 (`./gradlew build`)
-- [ ] Spring Boot 기동 성공 (`./gradlew :api:bootRun`)
-- [ ] 헬스체크 엔드포인트 응답 (`GET /health` → 200)
-- [ ] Docker Compose 컨테이너 정상
-- [ ] PostgreSQL + pgvector 확장 설치 확인
-- [ ] Flyway 마이그레이션 성공
-- [ ] 환경변수 오버라이드 작동
-- [ ] `.gitignore` 정확 (시크릿 보호)
+- [x] Gradle 빌드 성공 (`./gradlew build`)
+- [x] Spring Boot 기동 성공 (`./gradlew :api:bootRun`)
+- [x] 헬스체크 엔드포인트 응답 (`GET /health` → 200)
+- [x] Docker Compose 컨테이너 정상
+- [x] PostgreSQL + pgvector 확장 설치 확인
+- [x] Flyway 마이그레이션 성공
+- [x] 환경변수 오버라이드 작동
+- [x] `.gitignore` 정확 (시크릿 보호)
 
 ---
 
@@ -120,13 +120,69 @@
 
 ---
 
+---
+
+## 🛡️ 하네스: AI Compliance Guard Phase 1
+
+**목표:** 규정 데이터 수집 + Hybrid RAG 파이프라인 완성. D2/D3/D4 기술 결정 → 규정 PDF 수집·파싱 → 벡터+키워드 검색 → Re-ranking → 검색 API 완성. 6명의 팀(기존 5명 + Data Engineer 추가)이 병렬 진행, 7~10일 내 완료.
+
+**트리거:** ai-compliance-guard Phase 1 작업 요청 시 `phase1-orchestrator` 스킬을 사용한다. 단순 기술 결정만 필요한 경우 `tech-decision-maker` 사용 가능.
+
+### 에이전트 팀 (6명)
+
+기존 5명 + Data Engineer 추가:
+
+| 에이전트 | 역할 | 파일 |
+|---------|------|------|
+| Architect | D2/D3/D4 기술 결정 | `.claude/agents/architect.md` |
+| Backend Specialist | 검색 API 구현 | `.claude/agents/backend-specialist.md` |
+| Database/Infra Engineer | DB 스키마 최적화, 인덱스 | `.claude/agents/database-infra-engineer.md` |
+| AI/RAG Specialist | 임베딩, 하이브리드 검색 | `.claude/agents/ai-rag-specialist.md` |
+| Data Engineer | PDF 수집·파싱·청킹 | `.claude/agents/data-engineer.md` |
+| QA/Validator | Recall@K 검증 | `.claude/agents/qa-validator.md` |
+
+### 스킬 (8개: Phase 0 스킬 + Phase 1 신규 4개)
+
+| 스킬 | 담당 에이전트 | 파일 |
+|-----|-------------|------|
+| Tech Decision Maker | Architect | `.claude/skills/tech-decision-maker/SKILL.md` |
+| Regulation Collector | Data Engineer | `.claude/skills/regulation-collector/SKILL.md` |
+| PDF Chunker | Data Engineer | `.claude/skills/pdf-chunker/SKILL.md` |
+| Hybrid RAG Builder | AI/RAG Specialist + Backend Specialist | `.claude/skills/hybrid-rag-builder/SKILL.md` |
+| Phase 1 Orchestrator | 팀 조율 (메인) | `.claude/skills/phase1-orchestrator/SKILL.md` |
+
+### 실행 모드
+**에이전트 팀** — 6명이 협업하며 TaskCreate/SendMessage로 자체 조율. 병렬 진행 가능 (Step 1과 Step 2 동시).
+
+### Phase 1 사용 방법
+
+```
+사용자: "Phase 1 시작해줄래?"
+→ phase1-orchestrator 스킬 트리거
+→ Step 1: D2/D3 기술 결정 + Step 2: 규정 수집·청킹 병렬
+→ Step 3: Hybrid RAG 파이프라인 (Step 1/2 완료 후)
+→ Step 4: 검증 및 평가
+→ 7~10일 내 Phase 1 완료
+```
+
+---
+
 ## 🎯 다음 액션
 
-1. **Phase 0 시작**: `phase0-orchestrator` 스킬 호출
-2. **기술 결정 확정**: D1 (Gradle 모듈 구조)
-3. **팀 구성**: Architect, Backend Specialist, DB/Infra Engineer, AI/RAG Specialist, QA/Validator
-4. **병렬 진행**: Gradle + Spring Boot + Docker 동시 진행
-5. **3~4일 내 Phase 0 완료**: 모든 검증 통과 후 Phase 1 준비
+1. **Phase 0 완료 후**: `phase1-orchestrator` 스킬 호출
+2. **기술 결정**: D2(BM25), D3(임베딩 모델), D4(Re-ranking)
+3. **팀 확장**: Data Engineer 추가 (총 6명)
+4. **병렬 진행**: 기술 결정 + 규정 수집·청킹 동시
+5. **7~10일 내 Phase 1 완료**: 검색 API 동작 확인 후 Phase 2 준비
+
+---
+
+## 📝 변경 이력
+
+| 날짜 | 변경 내용 | 대상 | 사유 |
+|------|----------|------|------|
+| 2026-05-26 | 초기 구성 | Phase 0 | ai-compliance-guard Phase 0 하네스 구성 |
+| 2026-05-26 | Phase 1 하네스 추가 | Phase 1 | Data Engineer + 규정 수집·RAG 파이프라인 하네스 |
 
 ---
 
