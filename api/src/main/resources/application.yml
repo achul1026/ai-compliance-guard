@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: ai-compliance-guard
+  # Phase 0 기본 프로파일에서는 DB 없이도 기동 가능하도록
+  # DataSource/JPA/Flyway autoconfigure를 제외한다.
+  # 로컬 통합 테스트 시 SPRING_PROFILES_ACTIVE=local 로 활성화한다.
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+
+app:
+  version: 0.1.0-SNAPSHOT
+
+logging:
+  level:
+    root: INFO
+    com.achul.compliance: DEBUG

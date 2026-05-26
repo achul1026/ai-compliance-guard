@@ -1,0 +1,42 @@
+# Gradle / build
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Secrets / 환경변수
+.env
+.env.local
+.env.*.local
+# application-local.yml은 환경변수 기반이므로 git에 추적한다.
+# 시크릿 값이 들어가는 override 파일은 별도로 무시:
+api/src/main/resources/application-local-override.yml
+secrets/
+*.key
+*.pem
+
+# Docker volumes
+postgres_data/
+
+# Java
+*.class
+hs_err_pid*
+
+# Workspace (선택) — 산출물 문서는 추적하므로 주석 처리
+# _workspace/

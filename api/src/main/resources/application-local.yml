@@ -1,0 +1,25 @@
+spring:
+  # local 프로파일에서는 DB/JPA/Flyway autoconfigure를 다시 켠다.
+  autoconfigure:
+    exclude: []
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:compliance_db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
+    hikari:
+      maximum-pool-size: 10
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+llm:
+  provider: ${LLM_PROVIDER:openai}
+  api-key: ${LLM_API_KEY:}
