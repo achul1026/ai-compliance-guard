@@ -1,6 +1,8 @@
 services:
   postgres:
-    image: pgvector/pgvector:pg16
+    # ADR-002: ParadeDB는 pg_search(BM25) + pgvector 동봉 (Phase 1)
+    # PG16 안정 태그 고정 (ADR-002 권고: 메이저.마이너 핀)
+    image: paradedb/paradedb:0.23.5-pg16
     container_name: compliance-postgres
     restart: unless-stopped
     environment:

@@ -2,6 +2,7 @@ package com.achul.compliance.api.admin;
 
 import com.achul.compliance.infra.persistence.entity.RegulationEntity;
 import com.achul.compliance.infra.persistence.repository.RegulationRepository;
+import com.achul.compliance.rag.EmbeddingPipeline;
 import com.achul.compliance.rag.service.BatchEmbeddingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,13 +24,53 @@ public class EmbeddingAdminController {
 
     private final RegulationRepository regulationRepository;
     private final BatchEmbeddingService batchEmbeddingService;
+    private final EmbeddingPipeline embeddingPipeline;
 
     public EmbeddingAdminController(
         RegulationRepository regulationRepository,
-        BatchEmbeddingService batchEmbeddingService
+        BatchEmbeddingService batchEmbeddingService,
+        EmbeddingPipeline embeddingPipeline
     ) {
         this.regulationRepository = regulationRepository;
         this.batchEmbeddingService = batchEmbeddingService;
+        this.embeddingPipeline = embeddingPipeline;
+    }
+
+    /**
+     * RAG-002: JSONL 청크 적재 + 임베딩 생성 + DB 저장 풀 파이프라인.
+     * 입력 파일: application.yml의 pipeline.chunks-jsonl-path
+     */
+    @PostMapping("/pipeline/run")
+    public ResponseEntity<Map<String, Object>> runPipeline() {
+        log.info("Triggering RAG-002 EmbeddingPipeline.run()");
+        try {
+            EmbeddingPipeline.PipelineResult result = embeddingPipeline.run();
+            return ResponseEntity.ok(result.toReport());
+        } catch (Exception e) {
+            log.error("EmbeddingPipeline 실패", e);
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(500).body(error);
+        }
+    }
+
+    /**
+     * RAG-002: 샘플 코사인 유사도 검증 (적재 후 점검용).
+     */
+    @GetMapping("/pipeline/verify-similarity")
+    public ResponseEntity<List<EmbeddingPipeline.SampleSimilarity>> verifySimilarity(
+        @RequestParam(defaultValue = "5") int samples,
+        @RequestParam(defaultValue = "5") int topK
+    ) {
+        return ResponseEntity.ok(embeddingPipeline.verifySimilarity(samples, topK));
+    }
+
+    /**
+     * RAG-002: 통합 통계 (총건수/임베딩건수/도메인 분포).
+     */
+    @GetMapping("/pipeline/stats")
+    public ResponseEntity<Map<String, Object>> pipelineStats() {
+        return ResponseEntity.ok(embeddingPipeline.buildStats());
     }
 
     /**
