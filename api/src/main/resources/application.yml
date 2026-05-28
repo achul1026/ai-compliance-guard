@@ -33,6 +33,9 @@ upstage:
   timeout-seconds: ${UPSTAGE_TIMEOUT_SECONDS:30}
   batch-size: ${UPSTAGE_BATCH_SIZE:20}
   max-retries: ${UPSTAGE_MAX_RETRIES:3}
+  # D4: Upstage Solar-reranker
+  reranker-model: ${UPSTAGE_RERANKER_MODEL:solar-1-reranker}
+  reranker-url: ${UPSTAGE_RERANKER_URL:https://api.upstage.ai/v1/ranking}
 
 logging:
   level:

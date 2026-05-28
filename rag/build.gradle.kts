@@ -6,8 +6,9 @@ dependencies {
     // P1-5: Upstage REST 클라이언트
     implementation("org.springframework.boot:spring-boot-starter-web")
 
-    // P1-6 & P1-7: Database 접근 (JDBC, JdbcTemplate)
+    // P1-6 & P1-7: Database 접근 (JDBC, JdbcTemplate, JPA)
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     // P1-7: Logging & Lombok
     implementation("org.springframework.boot:spring-boot-starter-logging")

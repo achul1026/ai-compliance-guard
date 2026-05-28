@@ -57,8 +57,15 @@ public class HybridSearchAdapter implements HybridSearchPort {
                 bm25Results, vectorResults, opts
             );
 
-            // Step 4: 최종 정렬 및 제한
-            List<HybridSearchResult> results = hybridResults.stream()
+            // Step 4: Re-ranking (선택사항)
+            List<HybridResult> finalResults = hybridResults;
+            if (opts.useReranker() != null && opts.useReranker()) {
+                log.debug("Step 4: Re-ranking 적용");
+                finalResults = applyReranking(query, hybridResults, opts.topK());
+            }
+
+            // Step 5: 최종 정렬 및 제한
+            List<HybridSearchResult> results = finalResults.stream()
                 .sorted(Comparator.comparing(HybridResult::finalScore).reversed())
                 .limit(opts.topK())
                 .map(this::toHybridSearchResult)
@@ -191,6 +198,55 @@ public class HybridSearchAdapter implements HybridSearchPort {
         }
 
         return new ArrayList<>(combined.values());
+    }
+
+    /**
+     * Re-ranking 적용.
+     */
+    private List<HybridResult> applyReranking(String query, List<HybridResult> candidates, int topK) {
+        try {
+            List<RerankerPort.RerankCandidate> rerankCandidates = candidates.stream()
+                .map(r -> new RerankerPort.RerankCandidate(r.regulationId(), r.chunkText()))
+                .collect(Collectors.toList());
+
+            List<RerankerPort.RerankedResult> rerankedResults = reranker.rerank(
+                query, rerankCandidates, topK
+            );
+
+            // Reranker 결과를 HybridResult에 매핑
+            Map<Long, RerankerPort.RerankedResult> rerankerScores = rerankedResults.stream()
+                .collect(Collectors.toMap(
+                    RerankerPort.RerankedResult::documentId,
+                    r -> r
+                ));
+
+            return candidates.stream()
+                .map(r -> {
+                    RerankerPort.RerankedResult reranked = rerankerScores.get(r.regulationId());
+                    if (reranked != null) {
+                        return new HybridResult(
+                            r.regulationId(),
+                            r.lawName(),
+                            r.articleNumber(),
+                            r.paragraphNumber(),
+                            r.itemNumber(),
+                            r.chunkText(),
+                            r.bm25Score(),
+                            r.vectorScore(),
+                            reranked.relevanceScore(),
+                            reranked.relevanceScore(),
+                            "reranked",
+                            r.version()
+                        );
+                    }
+                    return r;
+                })
+                .collect(Collectors.toList());
+
+        } catch (Exception e) {
+            log.warn("Reranking failed, using RRF scores only", e);
+            return candidates;
+        }
     }
 
     /**

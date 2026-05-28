@@ -75,10 +75,22 @@ public interface RegulationRepository extends JpaRepository<RegulationEntity, Lo
     Page<RegulationEntity> findAll(Pageable pageable);
 
     /**
-     * 페이지네이션: 임베딩 미설정 규정 조회 (배치 임베딩용).
+     * 임베딩 미설정 규정 전체 조회 (배치 임베딩용).
+     */
+    @Query("SELECT r FROM RegulationEntity r WHERE r.embedding IS NULL")
+    List<RegulationEntity> findNotEmbeddedRegulations();
+
+    /**
+     * 페이지네이션: 임베딩 미설정 규정 조회.
      */
     @Query("SELECT r FROM RegulationEntity r WHERE r.embedding IS NULL")
     Page<RegulationEntity> findNotEmbeddedRegulations(Pageable pageable);
+
+    /**
+     * 임베딩이 설정된 규정 수.
+     */
+    @Query("SELECT COUNT(r) FROM RegulationEntity r WHERE r.embedding IS NOT NULL")
+    Long countByEmbeddingIsNotNull();
 
     /**
      * 법령명 + 조항 + 항 정확 매칭 (메타데이터 필터링).
