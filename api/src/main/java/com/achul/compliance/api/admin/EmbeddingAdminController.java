@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/admin/embedding")
+@RequestMapping("/admin/embedding")
 public class EmbeddingAdminController {
 
     private final RegulationRepository regulationRepository;
