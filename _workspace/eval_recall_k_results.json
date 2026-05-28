@@ -1,0 +1,1957 @@
+{
+  "search_mode": "BM25_ONLY (ParadeDB pg_search) — 임베딩 미적재로 벡터/리랭커 미사용",
+  "n_samples": 25,
+  "aggregate": {
+    "overall": {
+      "recall_at_5_strict": 0.2,
+      "recall_at_10_strict": 0.2,
+      "recall_at_5_loose": 0.52,
+      "recall_at_10_loose": 0.52,
+      "n_samples": 25
+    },
+    "by_violation_type": {
+      "질병 예방·치료 표방": {
+        "n": 5,
+        "recall_at_5_strict": 0.0,
+        "recall_at_10_strict": 0.0,
+        "recall_at_5_loose": 0.0,
+        "recall_at_10_loose": 0.0
+      },
+      "의약품 오인 유발": {
+        "n": 5,
+        "recall_at_5_strict": 0.0,
+        "recall_at_10_strict": 0.0,
+        "recall_at_5_loose": 0.6,
+        "recall_at_10_loose": 0.6
+      },
+      "허위·과장 표시": {
+        "n": 5,
+        "recall_at_5_strict": 0.0,
+        "recall_at_10_strict": 0.0,
+        "recall_at_5_loose": 1.0,
+        "recall_at_10_loose": 1.0
+      },
+      "객관적 근거 부재": {
+        "n": 5,
+        "recall_at_5_strict": 0.4,
+        "recall_at_10_strict": 0.4,
+        "recall_at_5_loose": 0.4,
+        "recall_at_10_loose": 0.4
+      },
+      "화장품 효능 광고 위반": {
+        "n": 5,
+        "recall_at_5_strict": 0.6,
+        "recall_at_10_strict": 0.6,
+        "recall_at_5_loose": 0.6,
+        "recall_at_10_loose": 0.6
+      }
+    },
+    "by_difficulty": {
+      "easy": {
+        "n": 10,
+        "recall_at_5_strict": 0.0,
+        "recall_at_10_strict": 0.0,
+        "recall_at_5_loose": 0.3,
+        "recall_at_10_loose": 0.3
+      },
+      "medium": {
+        "n": 10,
+        "recall_at_5_strict": 0.2,
+        "recall_at_10_strict": 0.2,
+        "recall_at_5_loose": 0.7,
+        "recall_at_10_loose": 0.7
+      },
+      "hard": {
+        "n": 5,
+        "recall_at_5_strict": 0.6,
+        "recall_at_10_strict": 0.6,
+        "recall_at_5_loose": 0.6,
+        "recall_at_10_loose": 0.6
+      }
+    }
+  },
+  "samples": [
+    {
+      "sample_id": "GOLDEN-001",
+      "violation_type": "질병 예방·치료 표방",
+      "violation_text": "당뇨병 예방에 효과적입니다",
+      "difficulty": "easy",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 1호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "건강기능식품에 관한 법률",
+          "article": "제18조",
+          "expected_match_level": "semantic"
+        },
+        {
+          "law": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article": "제2조 1호",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": false,
+      "hit_at_10_loose": false,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [],
+      "elapsed_ms": 367
+    },
+    {
+      "sample_id": "GOLDEN-002",
+      "violation_type": "질병 예방·치료 표방",
+      "violation_text": "암 예방에 도움을 주는 건강식품",
+      "difficulty": "easy",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 1호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "건강기능식품에 관한 법률",
+          "article": "제18조",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [
+        {
+          "id": 115,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 5.7704573
+        },
+        {
+          "id": 113,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 5.588976
+        },
+        {
+          "id": 72,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.732856
+        },
+        {
+          "id": 24,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.8103676
+        },
+        {
+          "id": 71,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.7054894
+        },
+        {
+          "id": 81,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.6081572
+        },
+        {
+          "id": 107,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.517585
+        },
+        {
+          "id": 51,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.4330924
+        }
+      ],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": false,
+      "hit_at_10_loose": false,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [],
+      "elapsed_ms": 174
+    },
+    {
+      "sample_id": "GOLDEN-003",
+      "violation_type": "질병 예방·치료 표방",
+      "violation_text": "고혈압을 잡아드립니다",
+      "difficulty": "easy",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 1호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article": "제2조 1호",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": false,
+      "hit_at_10_loose": false,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [],
+      "elapsed_ms": 182
+    },
+    {
+      "sample_id": "GOLDEN-004",
+      "violation_type": "질병 예방·치료 표방",
+      "violation_text": "당뇨병 개선에 탁월한 효과",
+      "difficulty": "easy",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 1호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "건강기능식품에 관한 법률",
+          "article": "제18조",
+          "expected_match_level": "semantic"
+        },
+        {
+          "law": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article": "제2조 1호",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [
+        {
+          "id": 116,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 6.291161
+        },
+        {
+          "id": 49,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.6536472
+        },
+        {
+          "id": 114,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.6536472
+        },
+        {
+          "id": 106,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.5310268
+        }
+      ],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": false,
+      "hit_at_10_loose": false,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [],
+      "elapsed_ms": 170
+    },
+    {
+      "sample_id": "GOLDEN-005",
+      "violation_type": "질병 예방·치료 표방",
+      "violation_text": "혈압 조절에 직접적인 효과가 입증된 식품",
+      "difficulty": "easy",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 1호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "건강기능식품에 관한 법률",
+          "article": "제18조",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [
+        {
+          "id": 69,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 6.6448603
+        },
+        {
+          "id": 77,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 4.4213333
+        },
+        {
+          "id": 68,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.854034
+        },
+        {
+          "id": 48,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.3957653
+        },
+        {
+          "id": 49,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.3957653
+        },
+        {
+          "id": 55,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.1639597
+        },
+        {
+          "id": 65,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.8884442
+        },
+        {
+          "id": 81,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.609221
+        },
+        {
+          "id": 120,
+          "law_name": "건강기능식품 표시·광고 자율심의기구 운영규정",
+          "article_number": "제1조",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.3482206
+        },
+        {
+          "id": 106,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.3333042
+        }
+      ],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": false,
+      "hit_at_10_loose": false,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [],
+      "elapsed_ms": 184
+    },
+    {
+      "sample_id": "GOLDEN-006",
+      "violation_type": "의약품 오인 유발",
+      "violation_text": "의약품처럼 작용하는 영양제",
+      "difficulty": "easy",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 2호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article": "제2조 1호",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": false,
+      "hit_at_10_loose": false,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [],
+      "elapsed_ms": 182
+    },
+    {
+      "sample_id": "GOLDEN-007",
+      "violation_type": "의약품 오인 유발",
+      "violation_text": "처방약과 함께 복용해도 안전한 천연 치료제",
+      "difficulty": "easy",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 2호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article": "제2조 1호",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [
+        {
+          "id": 110,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 9.324979
+        },
+        {
+          "id": 87,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 5.540483
+        },
+        {
+          "id": 16,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "차목",
+          "score": 4.699537
+        },
+        {
+          "id": 47,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.7513871
+        },
+        {
+          "id": 52,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.5721822
+        },
+        {
+          "id": 53,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.9997876
+        },
+        {
+          "id": 103,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.9997876
+        },
+        {
+          "id": 58,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.1618953
+        },
+        {
+          "id": 112,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.1618953
+        },
+        {
+          "id": 118,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.1618953
+        }
+      ],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": true,
+      "hit_at_10_loose": true,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [
+        "식품등의 부당한 표시 또는 광고의 내용 기준 제2조 1호"
+      ],
+      "elapsed_ms": 188
+    },
+    {
+      "sample_id": "GOLDEN-008",
+      "violation_type": "의약품 오인 유발",
+      "violation_text": "쌍화탕 성분을 그대로 담은 건강음료",
+      "difficulty": "easy",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 2호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article": "제2조 1호 가목",
+          "expected_match_level": "exact"
+        }
+      ],
+      "top10": [
+        {
+          "id": 24,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 4.7169847
+        },
+        {
+          "id": 32,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제3조",
+          "paragraph_number": "",
+          "item_number": "가목",
+          "score": 4.6989865
+        },
+        {
+          "id": 25,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "가목",
+          "score": 4.106129
+        },
+        {
+          "id": 77,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.7610252
+        },
+        {
+          "id": 26,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "나목",
+          "score": 3.2198021
+        },
+        {
+          "id": 14,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "아목",
+          "score": 2.866153
+        },
+        {
+          "id": 62,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.7666216
+        },
+        {
+          "id": 56,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.5869503
+        },
+        {
+          "id": 61,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.5869503
+        },
+        {
+          "id": 54,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.5055907
+        }
+      ],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": true,
+      "hit_at_10_loose": true,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [
+        "식품등의 부당한 표시 또는 광고의 내용 기준 제2조 1호 가목"
+      ],
+      "elapsed_ms": 174
+    },
+    {
+      "sample_id": "GOLDEN-009",
+      "violation_type": "의약품 오인 유발",
+      "violation_text": "○○클리닉이 추천하는 영양제",
+      "difficulty": "easy",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 2호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article": "제2조 1호",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [
+        {
+          "id": 110,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.9893243
+        }
+      ],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": false,
+      "hit_at_10_loose": false,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [],
+      "elapsed_ms": 178
+    },
+    {
+      "sample_id": "GOLDEN-010",
+      "violation_type": "의약품 오인 유발",
+      "violation_text": "정제·캡슐 형태로 약처럼 간편하게 복용 가능",
+      "difficulty": "easy",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 2호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article": "제2조 1호",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [
+        {
+          "id": 36,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제3조",
+          "paragraph_number": "",
+          "item_number": "다목",
+          "score": 3.7383957
+        },
+        {
+          "id": 112,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.5310268
+        },
+        {
+          "id": 115,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.4163702
+        }
+      ],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": true,
+      "hit_at_10_loose": true,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [
+        "식품등의 부당한 표시 또는 광고의 내용 기준 제2조 1호"
+      ],
+      "elapsed_ms": 178
+    },
+    {
+      "sample_id": "GOLDEN-011",
+      "violation_type": "허위·과장 표시",
+      "violation_text": "100% 천연 원료로만 제조 (합성향료 포함)",
+      "difficulty": "medium",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 4호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article": "제2조 3호 차목",
+          "expected_match_level": "exact"
+        }
+      ],
+      "top10": [
+        {
+          "id": 17,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "차목",
+          "score": 10.660238
+        },
+        {
+          "id": 88,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 10.660238
+        },
+        {
+          "id": 87,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 7.9454193
+        },
+        {
+          "id": 16,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "차목",
+          "score": 7.020958
+        },
+        {
+          "id": 110,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 5.3356547
+        },
+        {
+          "id": 117,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 4.6079087
+        },
+        {
+          "id": 111,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.653641
+        },
+        {
+          "id": 65,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.5421185
+        },
+        {
+          "id": 107,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.3214214
+        },
+        {
+          "id": 105,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.1706626
+        }
+      ],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": true,
+      "hit_at_10_loose": true,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [
+        "식품등의 부당한 표시 또는 광고의 내용 기준 제2조 3호 차목"
+      ],
+      "elapsed_ms": 178
+    },
+    {
+      "sample_id": "GOLDEN-012",
+      "violation_type": "허위·과장 표시",
+      "violation_text": "100% 오렌지주스 (실제 구연산·향료 첨가, 옆 표기 없음)",
+      "difficulty": "medium",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 4호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article": "제2조 3호 카목",
+          "expected_match_level": "exact"
+        }
+      ],
+      "top10": [
+        {
+          "id": 17,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "차목",
+          "score": 16.366013
+        },
+        {
+          "id": 88,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 16.366013
+        },
+        {
+          "id": 127,
+          "law_name": "온라인 부당광고 사례집",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 5.391692
+        },
+        {
+          "id": 55,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 4.7880716
+        },
+        {
+          "id": 9,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "나목",
+          "score": 3.9263434
+        },
+        {
+          "id": 115,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.859786
+        },
+        {
+          "id": 85,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.78509
+        },
+        {
+          "id": 56,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.4163702
+        }
+      ],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": true,
+      "hit_at_10_loose": true,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [
+        "식품등의 부당한 표시 또는 광고의 내용 기준 제2조 3호 카목"
+      ],
+      "elapsed_ms": 189
+    },
+    {
+      "sample_id": "GOLDEN-013",
+      "violation_type": "허위·과장 표시",
+      "violation_text": "세계 최고 함량, 국내 최초 개발",
+      "difficulty": "medium",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 4호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article": "제2조 4호",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [
+        {
+          "id": 23,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "나목",
+          "score": 9.778328
+        },
+        {
+          "id": 91,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 9.329096
+        },
+        {
+          "id": 21,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "더목",
+          "score": 3.803589
+        },
+        {
+          "id": 122,
+          "law_name": "건강기능식품 표시·광고 자율심의기구 운영규정",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.4614966
+        },
+        {
+          "id": 98,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.341291
+        }
+      ],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": true,
+      "hit_at_10_loose": true,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [
+        "식품등의 부당한 표시 또는 광고의 내용 기준 제2조 4호"
+      ],
+      "elapsed_ms": 168
+    },
+    {
+      "sample_id": "GOLDEN-014",
+      "violation_type": "허위·과장 표시",
+      "violation_text": "유기농 인증 100%, 화학 비료 일절 사용 안 함",
+      "difficulty": "medium",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 4호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article": "제2조 3호 차목",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [
+        {
+          "id": 110,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 11.638504
+        },
+        {
+          "id": 17,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "차목",
+          "score": 7.313417
+        },
+        {
+          "id": 88,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 7.313417
+        },
+        {
+          "id": 54,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 5.320341
+        },
+        {
+          "id": 113,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 5.1516294
+        },
+        {
+          "id": 103,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 4.899558
+        },
+        {
+          "id": 58,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.9893243
+        },
+        {
+          "id": 3,
+          "law_name": "화장품법",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.611478
+        },
+        {
+          "id": 1,
+          "law_name": "건강기능식품에 관한 법률",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.5355954
+        },
+        {
+          "id": 2,
+          "law_name": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.5355954
+        }
+      ],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": true,
+      "hit_at_10_loose": true,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [
+        "식품 등의 표시ㆍ광고에 관한 법률 제8조 제1항 4호",
+        "식품등의 부당한 표시 또는 광고의 내용 기준 제2조 3호 차목"
+      ],
+      "elapsed_ms": 184
+    },
+    {
+      "sample_id": "GOLDEN-015",
+      "violation_type": "허위·과장 표시",
+      "violation_text": "국내 판매 1위 건강기능식품 (조사기관·기간 미명시)",
+      "difficulty": "medium",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 4호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article": "제2조 4호 나목",
+          "expected_match_level": "exact"
+        }
+      ],
+      "top10": [
+        {
+          "id": 91,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 12.057228
+        },
+        {
+          "id": 23,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "나목",
+          "score": 11.23833
+        },
+        {
+          "id": 78,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 5.745801
+        },
+        {
+          "id": 31,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제3조",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 4.7187796
+        },
+        {
+          "id": 43,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.352372
+        },
+        {
+          "id": 82,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.2085142
+        },
+        {
+          "id": 38,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.2032433
+        },
+        {
+          "id": 64,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.0085382
+        },
+        {
+          "id": 42,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 1.9886903
+        },
+        {
+          "id": 65,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 1.9886903
+        }
+      ],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": true,
+      "hit_at_10_loose": true,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [
+        "식품등의 부당한 표시 또는 광고의 내용 기준 제2조 4호 나목"
+      ],
+      "elapsed_ms": 192
+    },
+    {
+      "sample_id": "GOLDEN-016",
+      "violation_type": "객관적 근거 부재",
+      "violation_text": "임상시험으로 입증된 다이어트 효과 (시험기관·결과 미공개)",
+      "difficulty": "medium",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 4호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article": "제2조 4호 나목",
+          "expected_match_level": "semantic"
+        },
+        {
+          "law": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article": "전체",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [
+        {
+          "id": 116,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 6.291161
+        },
+        {
+          "id": 108,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 4.1278596
+        },
+        {
+          "id": 106,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.5310268
+        }
+      ],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": false,
+      "hit_at_10_loose": false,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [],
+      "elapsed_ms": 184
+    },
+    {
+      "sample_id": "GOLDEN-017",
+      "violation_type": "객관적 근거 부재",
+      "violation_text": "고객 만족도 95% (조사 출처·표본 미명시)",
+      "difficulty": "medium",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 4호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article": "제2조 4호 나목",
+          "expected_match_level": "exact"
+        }
+      ],
+      "top10": [],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": false,
+      "hit_at_10_loose": false,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [],
+      "elapsed_ms": 181
+    },
+    {
+      "sample_id": "GOLDEN-018",
+      "violation_type": "객관적 근거 부재",
+      "violation_text": "8주만에 체지방 감소 효과 (실증자료 미보관)",
+      "difficulty": "medium",
+      "correct_articles": [
+        {
+          "law": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article": "제8조 제1항 4호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article": "전체",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [
+        {
+          "id": 116,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 6.291161
+        },
+        {
+          "id": 114,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 5.8983955
+        },
+        {
+          "id": 115,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 5.2388163
+        },
+        {
+          "id": 100,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.5906742
+        },
+        {
+          "id": 106,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.5310268
+        },
+        {
+          "id": 98,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.341291
+        },
+        {
+          "id": 101,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.341291
+        },
+        {
+          "id": 108,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.341291
+        }
+      ],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": false,
+      "hit_at_10_loose": false,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [],
+      "elapsed_ms": 188
+    },
+    {
+      "sample_id": "GOLDEN-019",
+      "violation_type": "객관적 근거 부재",
+      "violation_text": "피부과 의사 80%가 추천 (조사 미실시)",
+      "difficulty": "medium",
+      "correct_articles": [
+        {
+          "law": "화장품법",
+          "article": "제13조 제1항 3호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "화장품법",
+          "article": "제14조",
+          "expected_match_level": "semantic"
+        },
+        {
+          "law": "화장품 표시·광고 관리 지침",
+          "article": "전체",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [
+        {
+          "id": 53,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 6.895228
+        },
+        {
+          "id": 116,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 5.581571
+        },
+        {
+          "id": 75,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 5.01636
+        }
+      ],
+      "hit_at_5_strict": true,
+      "hit_at_10_strict": true,
+      "hit_at_5_loose": true,
+      "hit_at_10_loose": true,
+      "matched_articles_in_top10_strict": [
+        "화장품 표시·광고 관리 지침 전체"
+      ],
+      "matched_articles_in_top10_loose": [
+        "화장품 표시·광고 관리 지침 전체"
+      ],
+      "elapsed_ms": 181
+    },
+    {
+      "sample_id": "GOLDEN-020",
+      "violation_type": "객관적 근거 부재",
+      "violation_text": "임상실험 결과 주름 70% 감소 (IRB·시험기관 미공개)",
+      "difficulty": "medium",
+      "correct_articles": [
+        {
+          "law": "화장품법",
+          "article": "제14조",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "화장품법",
+          "article": "제13조 제1항 4호",
+          "expected_match_level": "semantic"
+        },
+        {
+          "law": "화장품 표시·광고 관리 지침",
+          "article": "전체",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [
+        {
+          "id": 115,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 8.655187
+        },
+        {
+          "id": 114,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 5.8983955
+        },
+        {
+          "id": 108,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.341291
+        },
+        {
+          "id": 109,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.3089252
+        },
+        {
+          "id": 56,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.8959866
+        },
+        {
+          "id": 43,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.5079315
+        },
+        {
+          "id": 14,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "아목",
+          "score": 2.2372568
+        },
+        {
+          "id": 45,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.2372568
+        },
+        {
+          "id": 41,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.1595647
+        },
+        {
+          "id": 57,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 2.1595647
+        }
+      ],
+      "hit_at_5_strict": true,
+      "hit_at_10_strict": true,
+      "hit_at_5_loose": true,
+      "hit_at_10_loose": true,
+      "matched_articles_in_top10_strict": [
+        "화장품 표시·광고 관리 지침 전체"
+      ],
+      "matched_articles_in_top10_loose": [
+        "화장품 표시·광고 관리 지침 전체"
+      ],
+      "elapsed_ms": 169
+    },
+    {
+      "sample_id": "GOLDEN-021",
+      "violation_type": "화장품 효능 광고 위반",
+      "violation_text": "아토피 피부 질환을 치료하는 크림",
+      "difficulty": "hard",
+      "correct_articles": [
+        {
+          "law": "화장품법",
+          "article": "제13조 제1항 1호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "화장품법",
+          "article": "제13조 제1항 4호",
+          "expected_match_level": "semantic"
+        },
+        {
+          "law": "화장품 표시·광고 관리 지침",
+          "article": "전체",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [
+        {
+          "id": 106,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 6.4583077
+        },
+        {
+          "id": 114,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 5.8983955
+        },
+        {
+          "id": 107,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 4.699537
+        },
+        {
+          "id": 49,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.341291
+        },
+        {
+          "id": 110,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.2291539
+        }
+      ],
+      "hit_at_5_strict": true,
+      "hit_at_10_strict": true,
+      "hit_at_5_loose": true,
+      "hit_at_10_loose": true,
+      "matched_articles_in_top10_strict": [
+        "화장품 표시·광고 관리 지침 전체"
+      ],
+      "matched_articles_in_top10_loose": [
+        "화장품 표시·광고 관리 지침 전체"
+      ],
+      "elapsed_ms": 177
+    },
+    {
+      "sample_id": "GOLDEN-022",
+      "violation_type": "화장품 효능 광고 위반",
+      "violation_text": "탈모를 완전히 멈춰주는 두피 에센스",
+      "difficulty": "hard",
+      "correct_articles": [
+        {
+          "law": "화장품법",
+          "article": "제13조 제1항 1호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "화장품 표시·광고 관리 지침",
+          "article": "전체",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": false,
+      "hit_at_10_loose": false,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [],
+      "elapsed_ms": 179
+    },
+    {
+      "sample_id": "GOLDEN-023",
+      "violation_type": "화장품 효능 광고 위반",
+      "violation_text": "주름을 완전히 제거하는 의약부외품 수준의 크림",
+      "difficulty": "hard",
+      "correct_articles": [
+        {
+          "law": "화장품법",
+          "article": "제13조 제1항 1호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "화장품법",
+          "article": "제13조 제1항 2호",
+          "expected_match_level": "semantic"
+        },
+        {
+          "law": "화장품 표시·광고 관리 지침",
+          "article": "전체",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [
+        {
+          "id": 60,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 4.1278596
+        },
+        {
+          "id": 85,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.78509
+        },
+        {
+          "id": 12,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "마목",
+          "score": 3.6536472
+        }
+      ],
+      "hit_at_5_strict": false,
+      "hit_at_10_strict": false,
+      "hit_at_5_loose": false,
+      "hit_at_10_loose": false,
+      "matched_articles_in_top10_strict": [],
+      "matched_articles_in_top10_loose": [],
+      "elapsed_ms": 160
+    },
+    {
+      "sample_id": "GOLDEN-024",
+      "violation_type": "화장품 효능 광고 위반",
+      "violation_text": "○○대학교 피부과 전문의가 직접 처방하는 화장품",
+      "difficulty": "hard",
+      "correct_articles": [
+        {
+          "law": "화장품법",
+          "article": "제13조 제1항 3호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "화장품법",
+          "article": "제13조 제1항 1호",
+          "expected_match_level": "semantic"
+        },
+        {
+          "law": "화장품 표시·광고 관리 지침",
+          "article": "전체",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [
+        {
+          "id": 110,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 7.4590187
+        },
+        {
+          "id": 116,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 5.581571
+        },
+        {
+          "id": 80,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.7298665
+        },
+        {
+          "id": 98,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.3700356
+        },
+        {
+          "id": 97,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.3520951
+        },
+        {
+          "id": 99,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.2778902
+        },
+        {
+          "id": 75,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.2291539
+        },
+        {
+          "id": 93,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.2030883
+        },
+        {
+          "id": 101,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.162968
+        },
+        {
+          "id": 53,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 3.1242993
+        }
+      ],
+      "hit_at_5_strict": true,
+      "hit_at_10_strict": true,
+      "hit_at_5_loose": true,
+      "hit_at_10_loose": true,
+      "matched_articles_in_top10_strict": [
+        "화장품 표시·광고 관리 지침 전체"
+      ],
+      "matched_articles_in_top10_loose": [
+        "화장품 표시·광고 관리 지침 전체"
+      ],
+      "elapsed_ms": 163
+    },
+    {
+      "sample_id": "GOLDEN-025",
+      "violation_type": "화장품 효능 광고 위반",
+      "violation_text": "천연·유기농 인증 100% 비건 화장품 (인증 미보유)",
+      "difficulty": "hard",
+      "correct_articles": [
+        {
+          "law": "화장품법",
+          "article": "제13조 제1항 2호",
+          "expected_match_level": "exact"
+        },
+        {
+          "law": "화장품법",
+          "article": "제13조 제1항 4호",
+          "expected_match_level": "semantic"
+        },
+        {
+          "law": "화장품 표시·광고 관리 지침",
+          "article": "전체",
+          "expected_match_level": "semantic"
+        }
+      ],
+      "top10": [
+        {
+          "id": 110,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 11.940634
+        },
+        {
+          "id": 17,
+          "law_name": "식품등의 부당한 표시 또는 광고의 내용 기준",
+          "article_number": "제2조",
+          "paragraph_number": "",
+          "item_number": "차목",
+          "score": 7.313417
+        },
+        {
+          "id": 88,
+          "law_name": "건강기능식품 인체적용시험 표시·광고 가이드라인",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 7.313417
+        },
+        {
+          "id": 3,
+          "law_name": "화장품법",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 7.222956
+        },
+        {
+          "id": 1,
+          "law_name": "건강기능식품에 관한 법률",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 7.071191
+        },
+        {
+          "id": 2,
+          "law_name": "식품 등의 표시ㆍ광고에 관한 법률",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 7.071191
+        },
+        {
+          "id": 113,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 6.831978
+        },
+        {
+          "id": 118,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 6.3459206
+        },
+        {
+          "id": 97,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 5.998134
+        },
+        {
+          "id": 103,
+          "law_name": "화장품 표시·광고 관리 지침",
+          "article_number": "N/A",
+          "paragraph_number": "",
+          "item_number": "",
+          "score": 5.3979034
+        }
+      ],
+      "hit_at_5_strict": true,
+      "hit_at_10_strict": true,
+      "hit_at_5_loose": true,
+      "hit_at_10_loose": true,
+      "matched_articles_in_top10_strict": [
+        "화장품 표시·광고 관리 지침 전체"
+      ],
+      "matched_articles_in_top10_loose": [
+        "화장품법 제13조 제1항 2호",
+        "화장품법 제13조 제1항 4호",
+        "화장품 표시·광고 관리 지침 전체"
+      ],
+      "elapsed_ms": 171
+    }
+  ]
+}
