@@ -26,7 +26,7 @@ app:
 
 # P1-5: 임베딩 파이프라인 (RAG-002)
 pipeline:
-  chunks-jsonl-path: ${PIPELINE_CHUNKS_JSONL_PATH:_workspace/regulations_chunks.jsonl}
+  chunks-jsonl-path: ${PIPELINE_CHUNKS_JSONL_PATH:/Users/chul/projects/ai-compliance-guard/_workspace/regulations_chunks.jsonl}
   embedding-batch-size: ${PIPELINE_EMBEDDING_BATCH_SIZE:100}
   max-retries: ${PIPELINE_MAX_RETRIES:3}
   source-tag: ${PIPELINE_SOURCE_TAG:DATA-002}

@@ -15,7 +15,7 @@ DB_CONFIG = {
     "port": 5432,
     "user": "postgres",
     "password": "postgres",
-    "database": "compliance_guard"
+    "database": "compliance_db"
 }
 
 
