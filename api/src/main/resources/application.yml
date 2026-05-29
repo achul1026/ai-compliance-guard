@@ -34,7 +34,7 @@ pipeline:
 # P1-5: Upstage API 설정
 upstage:
   api-key: ${UPSTAGE_API_KEY:placeholder_key}
-  embedding-model: ${UPSTAGE_EMBEDDING_MODEL:solar-embedding-1-large}
+  embedding-model: ${UPSTAGE_EMBEDDING_MODEL:solar-embedding-1-large-passage}
   api-url: ${UPSTAGE_API_URL:https://api.upstage.ai/v1/embeddings}
   embedding-dimension: ${UPSTAGE_EMBEDDING_DIMENSION:4096}
   timeout-seconds: ${UPSTAGE_TIMEOUT_SECONDS:30}
