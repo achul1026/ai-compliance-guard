@@ -339,3 +339,85 @@ V4 마이그레이션·자바 어댑터·application.yml 변경은 학습 모드
 3. 협업: JSONL 적재 endpoint 설계·구현 (5-10)
 4. 협업: 배치 임베딩 + HNSW V3 재실행 (5-11)
 5. 협업: 자바 환경 Hybrid 재평가 → Recall@10 ≥ 80% (5-12)
+
+---
+
+## 📅 2026-06-06 머지 + 다음 세션 시작점
+
+### 머지 완료 (커밋 `9628017`)
+
+원격 main의 Phase 1.5 (Upstage Solar 흐름)과 phase1-bge-m3-poc 브랜치 (BGE-m3 PoC + 토스인앱 채널 전략) 통합 완료. 양쪽 자산이 모두 코드베이스에 공존.
+
+| 영역 | 결과 |
+|---|---|
+| 두 임베딩 경로 (Upstage / BGE-m3) | EmbeddingPort 격리 덕분에 어댑터 토글로 공존 가능 |
+| 자바 RAG 자산 | 원격에서 HybridSearchService, KeywordSearchService, ParadedbBm25Adapter, EmbeddingPipeline, UpstageEmbeddingClient 등 신규 |
+| 마이그레이션 | V1·V2·V3 + 원격 V4 (`fix_metadata_column_type`) — **BGE-m3 차원 변경은 V5로 추가 필요** |
+| docker-compose | postgres → paradedb 이미지 + embedding-server 서비스 + hf_cache 볼륨 |
+| Phase 1.5 데이터 | 원격에서 705 청크 + 임베딩 100% 완료 상태 (이미 DB 적재 흐름) |
+| BGE-m3 PoC 데이터 | 로컬에서 635 청크 + Open API 청킹 + Hybrid PoC 평가 (Recall@10 dense 75%) |
+
+### 내일(또는 다음 세션) 시작 시 진행 가이드
+
+**1. 풀 받기**
+```bash
+git pull origin main
+```
+
+**2. 결정해야 할 첫 번째 이슈: 어느 임베딩 경로로 갈지**
+
+| 옵션 | 의미 | 즉시 작업 |
+|---|---|---|
+| **A. Upstage 흐름 유지** (Phase 1.5 그대로) | 원격에서 이미 705개 임베딩 완료, application.yml에 Upstage 모델 설정 | Upstage API 키 발급·환경변수 설정 후 운영 환경 평가 |
+| **B. BGE-m3 전환** (ADR-005 진행) | 외부 의존 없이 진행, 비용 0, 학습 가치 | V5 마이그레이션 작성 + BgeM3EmbeddingAdapter 작성 + 임베딩 서버 docker build |
+| **C. 둘 다 운영, 측정 후 결정** | EmbeddingPort `@ConditionalOnProperty` 토글로 양쪽 운영 | BgeM3EmbeddingAdapter 추가 + 양쪽 평가 후 결정 |
+
+**3. 옵션 B 또는 C 진행 시 작업 순서**
+
+```
+[Step 5-4] V5 마이그레이션 (V4가 다른 목적으로 점유됨)
+  - DROP INDEX idx_regulations_embedding_hnsw
+  - UPDATE regulations SET embedding = NULL
+  - ALTER TABLE regulations ALTER COLUMN embedding TYPE vector(1024)
+  - ALTER TABLE ADD COLUMN embedding_model VARCHAR(100)
+
+[Step 5-5] RegulationEntity.embedding 차원 변경 + embeddingModel 필드 추가
+
+[Step 5-6] BgeM3EmbeddingAdapter 작성
+  - @ConditionalOnProperty(name="embedding.provider", havingValue="bge-m3")
+  - UpstageSolarEmbeddingAdapter 패턴 복제, embedding-server HTTP 호출
+
+[Step 5-7] UpstageSolarEmbeddingAdapter에 @ConditionalOnProperty(havingValue="upstage") 추가
+
+[Step 5-8] application.yml: embedding.provider, embedding.bge-m3.url 설정
+
+[Step 5-9] docker compose build embedding-server && up -d
+  - 헬스체크: curl http://localhost:8001/health
+  - 임베딩 테스트: POST /embed
+
+[Step 5-10] JSONL → DB 적재 (원격에 EmbeddingPipeline 이미 있음 → 기존 흐름 활용 가능)
+
+[Step 5-11] 배치 임베딩 + V3 HNSW 인덱스 재실행 (1024 차원으로)
+
+[Step 5-12] 자바 환경 Hybrid 평가 (ParadeDB nori BM25 + Vector + Reranker) → Recall@10 80%
+```
+
+### 즉시 참고할 핵심 문서
+
+| 문서 | 용도 |
+|---|---|
+| `_workspace/ADR-005-bge-m3-poc-selection.md` | BGE-m3 채택 결정·트리거 |
+| `_workspace/ADR-003-embedding-selection.md` | Upstage Solar 1차 결정 (배경 이해) |
+| `_workspace/CHUNKING_REPORT.md` | 본문(BGE-m3 PoC 635개) + 부록(1차 127개) |
+| `_workspace/PHASE1.5_TECHNICAL_ANALYSIS.md` | 원격 Phase 1.5 기술 분석 (반드시 읽기) |
+| `_workspace/PHASE1_EVALUATION.md` | 원격 Phase 1 평가 결과 |
+| `embedding-server/README.md` | FastAPI 임베딩 서비스 사용법 |
+| `_workspace/chunking/` | Open API 청킹·평가 스크립트 (BGE-m3 경로) |
+| `_workspace/scripts/` | Upstage 경로 청킹·평가 스크립트 |
+
+### 주의 사항
+
+- **V4가 점유됨**: 원격 V4는 `fix_metadata_column_type`이라는 별도 목적. BGE-m3 차원 변경은 **V5** 로 추가
+- **regulations_chunks.jsonl**이 원격에서 추적되고 있음 (gitignore 룰이 늦게 추가됨). 정리하려면 `git rm --cached _workspace/regulations_chunks.jsonl` 한 번 실행 후 커밋
+- **두 청킹 결과(635개 vs 705개)** 가 다른 파일에 공존. 어느 데이터를 운영에 쓸지 결정 필요
+- 학습 모드 적용 범위(§5)는 다음 세션에서도 유지
