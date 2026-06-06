@@ -130,9 +130,15 @@ public class UpstageSolarEmbeddingAdapter implements EmbeddingPort {
         try {
             UpstageBatchRequest request = new UpstageBatchRequest(modelName, texts);
 
-            log.debug("Calling Upstage API with {} texts", texts.size());
+            log.debug("Calling Upstage API with {} texts, key exists: {}", texts.size(), apiKey != null && !apiKey.isBlank());
 
-            UpstageBatchResponse response = restTemplate.postForObject(apiUrl, request, UpstageBatchResponse.class);
+            org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
+            headers.set("Authorization", "Bearer " + apiKey);
+            headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
+
+            org.springframework.http.HttpEntity<UpstageBatchRequest> entity = new org.springframework.http.HttpEntity<>(request, headers);
+            org.springframework.http.ResponseEntity<UpstageBatchResponse> responseEntity = restTemplate.postForEntity(apiUrl, entity, UpstageBatchResponse.class);
+            UpstageBatchResponse response = responseEntity.getBody();
 
             if (response == null || response.data == null || response.data.isEmpty()) {
                 log.warn("Empty response from Upstage API");
@@ -144,7 +150,8 @@ public class UpstageSolarEmbeddingAdapter implements EmbeddingPort {
                 .collect(Collectors.toList());
 
         } catch (RestClientException e) {
-            throw new RuntimeException("Failed to call Upstage embedding API", e);
+            log.error("Upstage API error - Status: {}, Message: {}", e.getMessage(), e.getCause(), e);
+            throw new RuntimeException("Failed to call Upstage embedding API: " + e.getMessage(), e);
         }
     }
 

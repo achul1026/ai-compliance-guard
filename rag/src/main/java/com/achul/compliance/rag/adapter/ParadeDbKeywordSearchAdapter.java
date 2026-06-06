@@ -6,21 +6,32 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * ADR-002: ParadeDB (PostgreSQL BM25 확장) 키워드 검색 구현체.
+ * ADR-002: ParadeDB (pg_search 0.23.x) BM25 키워드 검색 구현체.
+ *
+ * 사용 SQL 예:
+ * <pre>
+ * SELECT id, law_name, article_number, ...,
+ *        paradedb.score(id) AS bm25_score
+ * FROM regulations
+ * WHERE chunk_text @@@ ?      -- BM25 매칭(다중 토큰 지원)
+ *   AND law_name = ?          -- (선택) 메타 필터
+ *   AND article_number = ?    -- (선택) 메타 필터
+ * ORDER BY bm25_score DESC
+ * LIMIT ?;
+ * </pre>
+ *
+ * pg_search 0.23.x의 BM25 파라미터는 인덱스 빌드 시점에 결정되며
+ * 본 마이그레이션은 기본값(k1=1.2, b=0.75)을 사용한다. EVAL-002에서 A/B 검증한다.
  */
 @Slf4j
 @Component
 public class ParadeDbKeywordSearchAdapter implements KeywordSearchPort {
 
     private final JdbcTemplate jdbcTemplate;
-
-    private static final Pattern ARTICLE_PATTERN = Pattern.compile("제(\\d+)조");
-    private static final Pattern PARAGRAPH_PATTERN = Pattern.compile("제(\\d+)항");
-    private static final Pattern ITEM_PATTERN = Pattern.compile("제(\\d+)호");
 
     public ParadeDbKeywordSearchAdapter(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -42,57 +53,47 @@ public class ParadeDbKeywordSearchAdapter implements KeywordSearchPort {
             return List.of();
         }
 
-        log.debug("Executing BM25 search. Query: '{}', Limit: {}", query, limit);
-
-        StringBuilder sqlBuilder = new StringBuilder(
+        StringBuilder sql = new StringBuilder(
             "SELECT r.id, r.law_name, r.article_number, r.paragraph_number, r.item_number, " +
-            "       r.chunk_text, r.version " +
+            "       r.chunk_text, r.version, paradedb.score(r.id) AS bm25_score " +
             "FROM regulations r " +
-            "WHERE r.chunk_text LIKE ? "
+            "WHERE r.chunk_text @@@ ? "
         );
 
-        java.util.List<Object> params = new java.util.ArrayList<>();
-        params.add("%" + query + "%");
+        List<Object> params = new ArrayList<>();
+        params.add(query);
 
         if (lawName != null && !lawName.isBlank()) {
-            sqlBuilder.append("AND r.law_name = ? ");
+            sql.append("AND r.law_name = ? ");
             params.add(lawName);
         }
 
         if (articleNumber != null && !articleNumber.isBlank()) {
-            sqlBuilder.append("AND r.article_number = ? ");
+            sql.append("AND r.article_number = ? ");
             params.add(articleNumber);
         }
 
-        sqlBuilder.append("LIMIT ?");
+        sql.append("ORDER BY bm25_score DESC LIMIT ?");
         params.add(limit);
 
-        String finalSql = sqlBuilder.toString();
-
+        long startNanos = System.nanoTime();
         try {
             List<KeywordSearchResult> results = jdbcTemplate.query(
-                finalSql,
+                sql.toString(),
                 params.toArray(),
-                getRowMapper()
+                rowMapper()
             );
-
-            log.info("BM25 search completed. Returned {} results", results.size());
+            long elapsedMs = (System.nanoTime() - startNanos) / 1_000_000L;
+            log.info("BM25 search '{}' (law={}, article={}): {} hits, {} ms",
+                query, lawName, articleNumber, results.size(), elapsedMs);
             return results;
-
         } catch (Exception e) {
-            log.error("BM25 search failed", e);
+            log.error("BM25 search failed. query='{}'", query, e);
             throw new RuntimeException("BM25 search failed", e);
         }
     }
 
-    private boolean isMetadataQuery(String query) {
-        return ARTICLE_PATTERN.matcher(query).find() ||
-               PARAGRAPH_PATTERN.matcher(query).find() ||
-               ITEM_PATTERN.matcher(query).find() ||
-               query.contains("법");
-    }
-
-    private RowMapper<KeywordSearchResult> getRowMapper() {
+    private RowMapper<KeywordSearchResult> rowMapper() {
         return (rs, rowNum) -> new KeywordSearchResult(
             rs.getLong("id"),
             rs.getString("law_name"),
@@ -100,7 +101,7 @@ public class ParadeDbKeywordSearchAdapter implements KeywordSearchPort {
             rs.getString("paragraph_number"),
             rs.getString("item_number"),
             rs.getString("chunk_text"),
-            1.0f,
+            rs.getFloat("bm25_score"),
             rs.getString("version")
         );
     }

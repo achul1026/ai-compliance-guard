@@ -75,10 +75,10 @@ public class RegulationEntity {
     private String violationType;
 
     /**
-     * 추가 메타데이터 (JSONB).
+     * 추가 메타데이터 (JSON 문자열, TEXT 저장).
      * 예: {"source_url": "...", "collected_date": "2026-05-26", "note": "..."}
      */
-    @Column(columnDefinition = "JSONB")
+    @Column(columnDefinition = "TEXT")
     private String metadata;
 
     /**

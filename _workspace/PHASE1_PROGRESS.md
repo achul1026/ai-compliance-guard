@@ -22,12 +22,17 @@
 - [x] RegulationEntity (JPA)
 - [x] RegulationRepository (Spring Data)
 
-### P1-5: 임베딩 파이프라인 — ✅ 완료
+### P1-5: 임베딩 파이프라인 — ✅ 완료 (RAG-002)
 - [x] EmbeddingPort 인터페이스
 - [x] UpstageSolarEmbeddingAdapter (REST API)
 - [x] 배치 처리, 재시도 로직, Rate limit 대응
 - [x] BatchEmbeddingService (배치 임베딩 서비스)
-- [ ] 실제 청크 임베딩 적재 (규정 데이터 대기중)
+- [x] **UpstageEmbeddingClient** (RAG-002: 단일 책임 HTTP 클라이언트)
+- [x] **EmbeddingPipeline** (RAG-002: JSONL → DB 적재 → 임베딩 → 통계/유사도 검증)
+- [x] **EmbeddingAdminController** 트리거 엔드포인트 3종 추가 (`/pipeline/run`, `/pipeline/stats`, `/pipeline/verify-similarity`)
+- [x] 멱등성 보장 (재실행 시 INSERT 스킵 + `embedding IS NULL` 만 처리)
+- [x] 산출물: `_workspace/embedding_stats.md`, `_workspace/embedding_sample_validation.md`
+- [ ] 운영 환경 실측 실행 (Docker DB + UPSTAGE_API_KEY 준비 후 `POST /pipeline/run`)
 
 ### P1-6: 키워드 검색(BM25) — ✅ 완료
 - [x] KeywordSearchPort 인터페이스
