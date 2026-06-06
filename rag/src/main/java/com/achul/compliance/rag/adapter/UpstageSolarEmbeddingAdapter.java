@@ -3,6 +3,7 @@ package com.achul.compliance.rag.adapter;
 import com.achul.compliance.rag.port.EmbeddingPort;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -14,10 +15,13 @@ import java.util.stream.Collectors;
 /**
  * ADR-003: Upstage Solar-embedding 구현체.
  * REST API 기반 임베딩 생성.
- * 1차 배포 선택 (Phase 1.5+에서 BGE-m3 로컬 구현체로 교체 가능).
+ *
+ * 활성화 조건: {@code embedding.provider=upstage}. BGE-m3로 전환된 이후
+ * Upstage 경로는 토글로만 활성화된다 (ADR-005).
  */
 @Slf4j
 @Component
+@ConditionalOnProperty(name = "embedding.provider", havingValue = "upstage")
 public class UpstageSolarEmbeddingAdapter implements EmbeddingPort {
 
     private final RestTemplate restTemplate;

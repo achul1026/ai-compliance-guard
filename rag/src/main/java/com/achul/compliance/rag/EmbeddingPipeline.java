@@ -2,6 +2,7 @@ package com.achul.compliance.rag;
 
 import com.achul.compliance.infra.persistence.entity.RegulationEntity;
 import com.achul.compliance.infra.persistence.repository.RegulationRepository;
+import com.achul.compliance.rag.port.EmbeddingPort;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,7 +52,7 @@ import java.util.stream.Collectors;
 public class EmbeddingPipeline {
 
     private final RegulationRepository regulationRepository;
-    private final UpstageEmbeddingClient embeddingClient;
+    private final EmbeddingPort embeddingClient;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Value("${pipeline.chunks-jsonl-path:_workspace/regulations_chunks.jsonl}")
@@ -68,7 +69,7 @@ public class EmbeddingPipeline {
 
     public EmbeddingPipeline(
         RegulationRepository regulationRepository,
-        UpstageEmbeddingClient embeddingClient
+        EmbeddingPort embeddingClient
     ) {
         this.regulationRepository = regulationRepository;
         this.embeddingClient = embeddingClient;
@@ -223,8 +224,10 @@ public class EmbeddingPipeline {
                     continue;
                 }
 
+                String modelName = embeddingClient.modelName();
                 for (int j = 0; j < batch.size(); j++) {
                     batch.get(j).setEmbedding(vectors.get(j));
+                    batch.get(j).setEmbeddingModel(modelName);
                 }
                 regulationRepository.saveAll(batch);
                 embedded += batch.size();
@@ -242,11 +245,11 @@ public class EmbeddingPipeline {
         RestClientException last = null;
         for (int attempt = 1; attempt <= maxRetries; attempt++) {
             try {
-                return embeddingClient.embedBatch(texts);
+                return embeddingClient.embedDocuments(texts);
             } catch (RestClientException e) {
                 last = e;
                 long backoffMs = (long) Math.pow(2, attempt) * 500L;
-                log.warn("Upstage 호출 실패 (시도 {}/{}). {}ms 후 재시도. msg={}",
+                log.warn("임베딩 호출 실패 (시도 {}/{}). {}ms 후 재시도. msg={}",
                     attempt, maxRetries, backoffMs, e.getMessage());
                 try {
                     Thread.sleep(backoffMs);
@@ -256,7 +259,7 @@ public class EmbeddingPipeline {
                 }
             }
         }
-        throw new RuntimeException("Upstage 호출 " + maxRetries + "회 실패", last);
+        throw new RuntimeException("임베딩 호출 " + maxRetries + "회 실패", last);
     }
 
     // -----------------------------------------------------------------

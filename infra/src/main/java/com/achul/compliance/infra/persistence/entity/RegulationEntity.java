@@ -62,11 +62,18 @@ public class RegulationEntity {
     private String chunkText;
 
     /**
-     * 임베딩 벡터 (4096차원, ADR-003)
-     * pgvector 확장 타입 사용.
+     * 임베딩 벡터 (1024차원, ADR-005: BGE-m3 전환).
+     * pgvector 확장 타입 사용. Upstage Solar 사용 시에도 1024로 통일.
      */
-    @Column(columnDefinition = "vector(4096)")
+    @Column(columnDefinition = "vector(1024)")
     private float[] embedding;
+
+    /**
+     * 임베딩 모델 식별자 (예: "BAAI/bge-m3", "solar-embedding-1-large").
+     * 다중 임베딩 운영 시 어느 모델로 만든 벡터인지 추적용.
+     */
+    @Column(name = "embedding_model", length = 100)
+    private String embeddingModel;
 
     /**
      * 택소노미 분류 (예: "violation_type_1", 저장용 JSONB는 metadata에)
@@ -165,6 +172,14 @@ public class RegulationEntity {
 
     public void setEmbedding(float[] embedding) {
         this.embedding = embedding;
+    }
+
+    public String getEmbeddingModel() {
+        return embeddingModel;
+    }
+
+    public void setEmbeddingModel(String embeddingModel) {
+        this.embeddingModel = embeddingModel;
     }
 
     public String getViolationType() {

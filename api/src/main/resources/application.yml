@@ -26,12 +26,23 @@ app:
 
 # P1-5: 임베딩 파이프라인 (RAG-002)
 pipeline:
-  chunks-jsonl-path: ${PIPELINE_CHUNKS_JSONL_PATH:/Users/chul/projects/ai-compliance-guard/_workspace/regulations_chunks.jsonl}
-  embedding-batch-size: ${PIPELINE_EMBEDDING_BATCH_SIZE:100}
+  chunks-jsonl-path: ${PIPELINE_CHUNKS_JSONL_PATH:_workspace/regulations_chunks.jsonl}
+  embedding-batch-size: ${PIPELINE_EMBEDDING_BATCH_SIZE:32}
   max-retries: ${PIPELINE_MAX_RETRIES:3}
   source-tag: ${PIPELINE_SOURCE_TAG:DATA-002}
 
-# P1-5: Upstage API 설정
+# ADR-005: 임베딩 프로바이더 토글
+embedding:
+  # bge-m3 (기본, FastAPI 로컬 추론 서버) 또는 upstage
+  provider: ${EMBEDDING_PROVIDER:bge-m3}
+  bge-m3:
+    url: ${EMBEDDING_BGE_M3_URL:http://localhost:8001}
+    model-name: ${EMBEDDING_BGE_M3_MODEL:BAAI/bge-m3}
+    dimension: ${EMBEDDING_BGE_M3_DIMENSION:1024}
+    batch-size: ${EMBEDDING_BGE_M3_BATCH_SIZE:32}
+    normalize: ${EMBEDDING_BGE_M3_NORMALIZE:true}
+
+# P1-5: Upstage API 설정 (embedding.provider=upstage 일 때 활성)
 upstage:
   api-key: ${UPSTAGE_API_KEY:placeholder_key}
   embedding-model: ${UPSTAGE_EMBEDDING_MODEL:solar-embedding-1-large-passage}

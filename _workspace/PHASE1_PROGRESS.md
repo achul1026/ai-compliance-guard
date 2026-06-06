@@ -421,3 +421,63 @@ git pull origin main
 - **regulations_chunks.jsonl**이 원격에서 추적되고 있음 (gitignore 룰이 늦게 추가됨). 정리하려면 `git rm --cached _workspace/regulations_chunks.jsonl` 한 번 실행 후 커밋
 - **두 청킹 결과(635개 vs 705개)** 가 다른 파일에 공존. 어느 데이터를 운영에 쓸지 결정 필요
 - 학습 모드 적용 범위(§5)는 다음 세션에서도 유지
+
+---
+
+## 📅 2026-06-06 (2회차 세션) — Step 5-4~5-8 완료 + Step 5-9 중단
+
+### 결정 사항 (이번 세션)
+
+- **임베딩 경로**: B안 (BGE-m3 전환) + `@ConditionalOnProperty` 토글로 Upstage 공존 가능 구조
+- **운영 청킹 데이터**: 705개 (`_workspace/regulations_chunks.jsonl`) 사용
+- **V5 정책**: HNSW 즉시 생성 (`m=16, ef_construction=64`)
+
+### 완료 (코드 변경 + 컴파일 통과, 미커밋)
+
+| Step | 산출물 |
+|---|---|
+| 5-4 | `infra/.../db/migration/V5__bge_m3_dim_1024.sql` 신규 |
+| 5-5 | `RegulationEntity`: `vector(1024)` + `embeddingModel` 필드 |
+| 5-6 | `rag/.../adapter/BgeM3EmbeddingAdapter.java` 신규 (EmbeddingPort 구현, FastAPI HTTP) |
+| 5-7 | `UpstageSolarEmbeddingAdapter`·`UpstageEmbeddingClient`에 `@ConditionalOnProperty(havingValue="upstage")` |
+| 5-8 | `application.yml`에 `embedding.provider/bge-m3.*` 블록 |
+| 추가 | `EmbeddingPipeline` 리팩토링: `UpstageEmbeddingClient` → `EmbeddingPort` + `setEmbeddingModel(...)` 호출 |
+
+- `./gradlew compileJava`: BUILD SUCCESSFUL
+- 테스트 7건 실패는 **baseline에서도 동일하게 실패** (`git stash` 검증). 본 변경 무관.
+
+### Step 5-9 중단
+
+`docker compose build embedding-server` 실행 후 25분 경과해도 stdout 출력 0바이트.
+`docker version`·`docker ps` 등 다른 docker CLI 호출도 응답 없이 hang.
+`com.docker.backend`·`docker-buildx`·`docker-compose` 프로세스는 살아있음.
+
+**원인 추정**: Docker Desktop UI는 켰으나 Linux engine(WSL2 backend)이 ready 상태 도달 못 함.
+
+### 다음 세션 첫 작업
+
+1. Docker Desktop 트레이 아이콘 색 확인 (녹색=ready)
+2. PowerShell에서 `docker version` 즉시 응답 확인
+3. 응답 정상이면 이전 프로세스(`taskkill /PID 23588 /F` for docker-buildx, `taskkill /PID 16360 /F` for docker-compose) 정리 또는 Docker Desktop 재시작
+4. `docker compose build embedding-server --progress=plain`으로 재시도 (plain 출력 모드)
+5. 빌드 완료 후 `docker compose up -d postgres embedding-server` → `curl http://localhost:8001/health`
+6. Step 5-10: `:api:bootRun --args='--spring.profiles.active=local'` + `POST /api/v1/admin/embedding/run` 호출
+7. Step 5-11: 자동 진행 (EmbeddingPipeline이 705 청크 적재 + BGE-m3 임베딩 1024차원으로 채움)
+8. Step 5-12: 자바 Hybrid Recall@10 평가 (`PHASE1_EVALUATION.md` 기준 골든셋)
+
+### 미커밋 변경 (다음 세션 시작 시 결정)
+
+```
+modified:   api/src/main/resources/application.yml
+modified:   infra/src/main/java/com/achul/compliance/infra/persistence/entity/RegulationEntity.java
+modified:   rag/src/main/java/com/achul/compliance/rag/EmbeddingPipeline.java
+modified:   rag/src/main/java/com/achul/compliance/rag/UpstageEmbeddingClient.java
+modified:   rag/src/main/java/com/achul/compliance/rag/adapter/UpstageSolarEmbeddingAdapter.java
+new file:   infra/src/main/resources/db/migration/V5__bge_m3_dim_1024.sql
+new file:   rag/src/main/java/com/achul/compliance/rag/adapter/BgeM3EmbeddingAdapter.java
+```
+
+### 학습 모드 관련 메모
+
+본 세션은 사용자 명시 지시("진행하라니까")로 Java/SQL을 Claude가 직접 작성했음. 다음 세션 시작 시 학습 모드 복귀 여부 확인 필요.
+
