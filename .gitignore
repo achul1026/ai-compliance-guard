@@ -40,3 +40,28 @@ hs_err_pid*
 
 # Workspace (선택) — 산출물 문서는 추적하므로 주석 처리
 # _workspace/
+
+# 청킹 작업: Python venv·시크릿·대용량 산출물 추적 제외
+_workspace/chunking/.venv/
+_workspace/chunking/.env
+_workspace/chunking/__pycache__/
+_workspace/chunking/**/__pycache__/
+
+# 청킹·임베딩 산출물 (재현 가능, 보고서로 결과 보존)
+_workspace/regulations_chunks.jsonl
+_workspace/regulations_chunks_enriched.jsonl
+_workspace/regulations_embeddings*.npy
+_workspace/regulations_embeddings*.json
+_workspace/sample_chunks_for_validation.json
+_workspace/evaluation_result.json
+
+# P1-1 단계 임시 HTML·디버그 파일
+_workspace/api_test.txt
+_workspace/fetched_law.html
+_workspace/full_law_page.html
+_workspace/law_ids.txt
+_workspace/law_rvs_doc.html
+
+# embedding-server 로컬 venv
+embedding-server/.venv/
+embedding-server/__pycache__/

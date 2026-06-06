@@ -18,5 +18,26 @@ services:
       timeout: 5s
       retries: 5
 
+  # ADR-005: BGE-m3 임베딩 추론 서비스
+  embedding-server:
+    build: ./embedding-server
+    container_name: compliance-embedding-server
+    restart: unless-stopped
+    environment:
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-BAAI/bge-m3}
+      EMBEDDING_MAX_LENGTH: ${EMBEDDING_MAX_LENGTH:-1024}
+      EMBEDDING_USE_FP16: ${EMBEDDING_USE_FP16:-false}
+    ports:
+      - "${EMBEDDING_PORT:-8001}:8000"
+    volumes:
+      - hf_cache:/root/.cache/huggingface
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 180s  # 모델 다운로드+로드 시간 고려
+
 volumes:
   postgres_data:
+  hf_cache:
