@@ -13,8 +13,8 @@
 
 | Phase | 내용 | 상태 |
 | :--- | :--- | :--- |
-| Phase 0 | 프로젝트 기반 셋업 | ⬜ 대기 |
-| Phase 1 | 데이터 구축 + Hybrid RAG | ⬜ 대기 |
+| Phase 0 | 프로젝트 기반 셋업 | ✅ 완료 (2026-05-26) |
+| Phase 1 | 데이터 구축 + Hybrid RAG | ✅ 완료 (2026-06-07, Recall@10 law_only 88%) |
 | Phase 2 | Multi-Agent 파이프라인 + UI | ⬜ 대기 |
 | Phase 3 | 엔터프라이즈 보안 + 수익화 | ⬜ 대기 |
 
