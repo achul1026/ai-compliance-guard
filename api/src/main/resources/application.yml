@@ -55,6 +55,17 @@ upstage:
   reranker-model: ${UPSTAGE_RERANKER_MODEL:solar-1-reranker}
   reranker-url: ${UPSTAGE_RERANKER_URL:https://api.upstage.ai/v1/ranking}
 
+# ADR-006 (D5): LLM 프로바이더 토글 — mock(기본, 호출 0건) | gemini(무료 티어)
+agent:
+  llm:
+    provider: ${AGENT_LLM_PROVIDER:mock}
+    gemini:
+      api-key: ${GEMINI_API_KEY:placeholder_key}
+      model: ${GEMINI_MODEL:gemini-flash-latest}
+      temperature: ${GEMINI_TEMPERATURE:0.2}
+      timeout-seconds: ${GEMINI_TIMEOUT_SECONDS:60}
+      max-retries: ${GEMINI_MAX_RETRIES:2}
+
 logging:
   level:
     root: INFO

@@ -30,8 +30,8 @@
 - **D2. 한국어 BM25 구현 방식**: PostgreSQL 기본 full-text search는 진정한 BM25가 아니고 한국어 형태소 분석이 약함. 후보 — (a) `pg_search`(ParadeDB) 확장, (b) 별도 검색엔진(OpenSearch/Elasticsearch + nori), (c) 애플리케이션 레벨 BM25(Lucene). Phase 1에서 확정.
 - **D3. 임베딩 모델**: 한국어 법령/규정 특화 필요. 후보 — OpenAI text-embedding-3, Upstage solar-embedding, BGE-m3 등. Phase 1에서 확정.
 - **D4. Re-ranking 방식**: Cohere Rerank, Upstage, cross-encoder 등. Phase 1에서 확정.
-- **D5. LLM 엔진**: OpenAI GPT-4o vs Upstage Solar (한국어 법률 추론 품질 비교 후 결정). Phase 2에서 확정.
-- **D6. 에이전트 오케스트레이션**: LangChain4j vs LangGraph (Java 생태계 호환성 검토). Phase 2에서 확정.
+- **D5. LLM 엔진**: ✅ 확정 (2026-06-13, ADR-006) — **Gemini Flash 무료 티어** (`LlmPort` 격리, 실고객 데이터 수신 시점에 유료 전환). 원안 후보(GPT-4o/Upstage Solar)는 "수익 전 비용 0" 원칙으로 탈락.
+- **D6. 에이전트 오케스트레이션**: ✅ 확정 (2026-06-13, ADR-007) — **LangChain4j(LLM 호출 계층) + 자체 상태머신(:agent 모듈)**. 그래프 프레임워크는 현 복잡도에 과잉으로 미도입.
 
 ---
 
