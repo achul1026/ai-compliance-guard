@@ -25,6 +25,7 @@ body {
   font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   background: var(--paper); color: var(--ink); line-height: 1.6; min-height: 100dvh;
   -webkit-font-smoothing: antialiased;
+  word-break: keep-all; overflow-wrap: break-word;
 }
 a { color: inherit; text-decoration: none; }
 .wrap { max-width: 560px; margin: 0 auto; padding: 0 18px calc(56px + env(safe-area-inset-bottom)); }
@@ -99,7 +100,7 @@ mark.m-low { background: var(--low-soft); box-shadow: inset 0 -2px 0 var(--low);
 .vio { background: var(--white); border-radius: var(--r-lg); padding: 20px; margin-bottom: 12px; }
 .vio-head { display: flex; align-items: center; gap: 10px; margin-bottom: 11px; flex-wrap: wrap; }
 .chip { flex: none; font-size: .73rem; font-weight: 800; letter-spacing: -.01em; border-radius: 999px; padding: 4px 11px; color: #fff; }
-.c-high { background: var(--high); } .c-medium { background: var(--medium); } .c-low { background: var(--low); }
+.c-high { background: var(--high); } .c-medium { background: var(--medium); } .c-low { background: var(--low); } .c-none { background: var(--safe); }
 .vio-quote { font-size: 1.04rem; font-weight: 800; color: var(--black); line-height: 1.45; }
 .vio-type { font-size: .85rem; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
 .vio-law { display: inline-block; font-size: .77rem; font-weight: 600; color: var(--gray); background: var(--paper); border-radius: var(--r-sm); padding: 4px 10px; margin-bottom: 9px; }
@@ -122,6 +123,15 @@ footer { margin-top: 50px; padding-top: 22px; border-top: 1px solid var(--line);
 .footer-links { margin-top: 13px; display: flex; gap: 18px; flex-wrap: wrap; }
 .footer-links a { color: var(--gray); text-decoration: none; font-weight: 700; }
 .footer-links a:hover { color: var(--ink); }
+
+/* ── 내 이력 ── */
+#history-section { display: none; margin-top: 30px; }
+.history-list { display: flex; flex-direction: column; gap: 10px; }
+.history-item { display: flex; align-items: center; gap: 12px; background: var(--white); border-radius: var(--r-md); padding: 14px 16px; }
+.history-item .h-text { flex: 1; min-width: 0; }
+.history-item .h-copy { font-size: .9rem; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.history-item .h-date { font-size: .74rem; color: var(--gray-soft); margin-top: 3px; }
+.history-empty { background: var(--white); border-radius: var(--r-lg); padding: 26px; text-align: center; font-size: .88rem; color: var(--gray); }
 
 .toast { position: fixed; left: 50%; bottom: calc(28px + env(safe-area-inset-bottom)); transform: translateX(-50%) translateY(16px); background: var(--black); color: var(--lime); font-size: .84rem; font-weight: 700; padding: 11px 20px; border-radius: 999px; opacity: 0; pointer-events: none; transition: all .25s; }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -213,6 +223,11 @@ footer { margin-top: 50px; padding-top: 22px; border-top: 1px solid var(--line);
 
     <p class="meta-line" id="meta-line"></p>
     <button class="again" id="again">다른 카피 심의하기</button>
+  </div>
+
+  <div id="history-section">
+    <p class="section-title">최근 심의</p>
+    <div class="history-list" id="history-list"></div>
   </div>
 
   <footer>
@@ -351,6 +366,7 @@ footer { margin-top: 50px; padding-top: 22px; border-top: 1px solid var(--line);
 
     result.style.display = 'block';
     result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    loadHistory();
   }
 
   document.addEventListener('click', (e) => {
@@ -379,12 +395,14 @@ footer { margin-top: 50px; padding-top: 22px; border-top: 1px solid var(--line);
     $('#usage-badge').style.display = 'inline-block';
     $('#user-email').textContent = user.email;
     loadUsage();
+    loadHistory();
   }
   function setLoggedOut() {
     currentUser = null;
     $('#login-open').style.display = 'inline-block';
     $('#user-chip').style.display = 'none';
     $('#usage-badge').style.display = 'none';
+    $('#history-section').style.display = 'none';
   }
   async function checkAuth() {
     try {
@@ -403,6 +421,37 @@ footer { margin-top: 50px; padding-top: 22px; border-top: 1px solid var(--line);
     const badge = $('#usage-badge');
     badge.textContent = '이번 달 무료 ' + remaining + '회';
     badge.classList.toggle('exhausted', remaining <= 0);
+  }
+  async function loadHistory() {
+    try {
+      const res = await fetch('/api/v1/audit/history');
+      if (!res.ok) return;
+      renderHistory(await res.json());
+    } catch { /* 무시 */ }
+  }
+  function formatDate(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (isNaN(d)) return '';
+    return `${d.getMonth() + 1}월 ${d.getDate()}일`;
+  }
+  const RISK_SHORT = { high: '부적합', medium: '주의', low: '경미', none: '적합' };
+  function renderHistory(items) {
+    const section = $('#history-section');
+    const list = $('#history-list');
+    if (!Array.isArray(items) || items.length === 0) { section.style.display = 'none'; return; }
+    list.innerHTML = items.map(it => {
+      const rl = (it.overallRisk || 'none').toLowerCase();
+      const label = RISK_SHORT[rl] || '—';
+      return `<div class="history-item">
+        <span class="chip c-${RISK_SHORT[rl] ? rl : 'none'}">${label}</span>
+        <div class="h-text">
+          <div class="h-copy">${esc(it.adCopy || '')}</div>
+          <div class="h-date">${formatDate(it.createdAt)}</div>
+        </div>
+      </div>`;
+    }).join('');
+    section.style.display = 'block';
   }
 
   // ── 모달 ──
