@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>광고 카피 심의소 — AI Compliance Guard</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23C4302B' stroke-width='2.5'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-size='13' font-weight='bold' fill='%23C4302B'%3E審%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='26' rx='2' fill='none' stroke='%23A8392E' stroke-width='2'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-size='15' font-weight='bold' fill='%23A8392E'%3E審%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,18 +12,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --paper: #FAF8F3;
-  --paper-deep: #F1EDE3;
-  --ink: #1C2B45;
-  --ink-soft: #5C6B85;
-  --line: #DDD6C7;
-  --seal-red: #C4302B;
-  --risk-high: #C4302B;
-  --risk-medium: #D97A1A;
-  --risk-low: #B89A2E;
-  --safe: #2E6E4E;
-  --accent: #3182F6;
-  --radius: 14px;
+  --paper: #F6F1E7;
+  --paper-card: #FCFAF4;
+  --ink: #23282E;       /* 먹 */
+  --ink-2: #474D54;     /* 본문 */
+  --ink-3: #8A857A;     /* 흐린 먹 */
+  --rule: #DAD2C0;      /* 괘선 */
+  --rule-strong: #C3B9A1;
+  --seal: #A8392E;      /* 인주 */
+  --high: #A8392E;
+  --medium: #9A6B1E;    /* 황토 */
+  --low: #6F6D44;       /* 녹황 */
+  --safe: #3C6249;      /* 쑥 */
   font-size: 16px;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -31,266 +31,245 @@ html { scroll-behavior: smooth; }
 body {
   font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   background: var(--paper);
-  color: var(--ink);
-  line-height: 1.6;
+  color: var(--ink-2);
+  line-height: 1.65;
   min-height: 100dvh;
-  /* 서류 종이 질감 */
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(28,43,69,0.045), transparent),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.025 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.022 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-.wrap { max-width: 560px; margin: 0 auto; padding: 0 20px calc(48px + env(safe-area-inset-bottom)); }
+.wrap { max-width: 540px; margin: 0 auto; padding: 0 22px calc(56px + env(safe-area-inset-bottom)); }
 
-/* ── 헤더 ── */
-header { padding: 28px 0 8px; display: flex; align-items: center; gap: 12px; }
+/* ── 머리 ── */
+header { padding: 30px 0 0; display: flex; align-items: center; gap: 13px; }
 .emblem {
-  width: 44px; height: 44px; flex: none;
-  border: 2.5px solid var(--seal-red); border-radius: 50%;
+  width: 42px; height: 42px; flex: none;
+  border: 2px solid var(--seal); border-radius: 3px;
   display: grid; place-items: center;
-  color: var(--seal-red);
-  font-family: "Gowun Batang", serif; font-weight: 700; font-size: 17px;
-  transform: rotate(-8deg);
-  box-shadow: inset 0 0 0 1.5px var(--paper), inset 0 0 0 2.5px rgba(196,48,43,.55);
+  color: var(--seal);
+  font-family: "Gowun Batang", serif; font-weight: 700; font-size: 20px;
   user-select: none;
 }
-header > div:not(.auth-area) { min-width: 0; }
-header h1 { font-family: "Gowun Batang", serif; font-size: 1.3rem; font-weight: 700; letter-spacing: .02em; white-space: nowrap; }
-header p { font-size: .78rem; color: var(--ink-soft); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.title-box { min-width: 0; }
+.title-box h1 { font-family: "Gowun Batang", serif; font-size: 1.32rem; font-weight: 700; color: var(--ink); letter-spacing: .01em; white-space: nowrap; }
+.title-box p { font-size: .76rem; color: var(--ink-3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.auth-area { margin-left: auto; display: flex; align-items: center; gap: 12px; flex: none; }
+.auth-btn {
+  border: 1px solid var(--ink); background: transparent; color: var(--ink);
+  font: inherit; font-size: .8rem; font-weight: 600; cursor: pointer;
+  padding: 7px 15px; border-radius: 3px; transition: background .15s, color .15s;
+}
+.auth-btn:active { background: var(--ink); color: var(--paper); }
+.user-chip { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; line-height: 1.25; }
+.user-chip .email { font-size: .74rem; font-weight: 600; color: var(--ink-2); max-width: 128px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.user-chip .logout { font-size: .68rem; color: var(--seal); cursor: pointer; }
+
+/* 머리 아래 이중 괘선 */
+.rule-double { margin: 18px 0 0; border-top: 2px solid var(--ink); height: 3px; border-bottom: 1px solid var(--rule-strong); }
 
 .notice {
-  margin: 14px 0 22px; padding: 10px 14px;
-  border-left: 3px solid var(--line);
-  font-size: .8rem; color: var(--ink-soft);
+  margin: 0 0 26px; padding: 13px 2px;
+  border-bottom: 1px solid var(--rule);
+  font-size: .82rem; color: var(--ink-3); text-align: center;
 }
-.notice strong { color: var(--ink); font-weight: 600; }
+.notice b { color: var(--seal); font-weight: 700; }
 
-/* ── 입력 카드 ── */
-.card {
-  background: #FFFEFB;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: 0 1px 2px rgba(28,43,69,.05), 0 8px 28px -18px rgba(28,43,69,.25);
+/* ── 입력 ── */
+.label-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 9px; }
+.field-label { font-family: "Gowun Batang", serif; font-size: .98rem; font-weight: 700; color: var(--ink); }
+.usage-badge {
+  font-size: .73rem; font-weight: 600; color: var(--safe);
+  border: 1px solid var(--safe); border-radius: 2px; padding: 2px 8px;
+  white-space: nowrap; letter-spacing: -.01em;
 }
-.input-card { padding: 18px; }
-.input-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
-.input-card label {
-  font-size: .82rem; font-weight: 700; letter-spacing: .06em;
-  color: var(--ink-soft);
-}
+.usage-badge.exhausted { color: var(--seal); border-color: var(--seal); }
+
 textarea {
-  width: 100%; min-height: 132px; resize: vertical;
-  border: 1.5px dashed var(--line); border-radius: 10px;
-  background: var(--paper);
-  padding: 14px; font: inherit; font-size: .95rem; color: var(--ink);
-  transition: border-color .2s, background .2s;
+  width: 100%; min-height: 150px; resize: vertical;
+  border: 1px solid var(--rule-strong); border-radius: 4px;
+  background: var(--paper-card);
+  padding: 15px; font: inherit; font-size: .96rem; color: var(--ink);
+  line-height: 1.7;
+  transition: border-color .2s;
 }
-textarea:focus { outline: none; border-color: var(--accent); border-style: solid; background: #fff; }
-textarea::placeholder { color: #A9A491; }
-.input-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
-.count { font-size: .75rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+textarea:focus { outline: none; border-color: var(--ink); }
+textarea::placeholder { color: #B0A998; }
+.input-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 13px; }
+.count { font-size: .74rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
 .btn {
-  border: 0; border-radius: 12px; cursor: pointer;
+  border: 0; border-radius: 4px; cursor: pointer;
   background: var(--ink); color: var(--paper);
-  font: inherit; font-weight: 700; font-size: .95rem;
-  padding: 13px 26px;
-  transition: transform .12s, box-shadow .2s, background .2s;
-  box-shadow: 0 6px 16px -8px rgba(28,43,69,.6);
+  font: inherit; font-weight: 600; font-size: .92rem;
+  padding: 12px 28px;
+  transition: transform .12s, background .2s;
 }
-.btn:active { transform: scale(.97); }
-.btn:disabled { background: #B8B2A2; box-shadow: none; cursor: default; }
+.btn:active { transform: translateY(1px); }
+.btn:disabled { background: #ACA593; cursor: default; }
 
-/* ── 검사 진행 ── */
-#progress { display: none; margin-top: 26px; }
+/* ── 진행 ── */
+#progress { display: none; margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--rule); }
 .steps { list-style: none; }
 .steps li {
-  display: flex; align-items: center; gap: 14px;
-  padding: 11px 4px; font-size: .9rem; color: var(--ink-soft);
-  opacity: .42; transition: opacity .4s;
+  display: flex; align-items: baseline; gap: 13px;
+  padding: 9px 2px; font-size: .89rem; color: var(--ink-3);
+  opacity: .45; transition: opacity .4s;
 }
-.steps li .dot {
-  width: 26px; height: 26px; flex: none; border-radius: 50%;
-  border: 1.5px solid var(--line); display: grid; place-items: center;
-  font-size: .72rem; font-weight: 700; color: var(--ink-soft);
-  background: #fff; transition: all .3s;
+.steps li .num {
+  flex: none; width: 1.4em; font-family: "Gowun Batang", serif; font-weight: 700;
+  color: var(--ink-3); font-size: .82rem;
 }
 .steps li.active { opacity: 1; color: var(--ink); }
-.steps li.active .dot {
-  border-color: var(--accent); color: var(--accent);
-  animation: pulse 1.4s ease-in-out infinite;
-}
-.steps li.done { opacity: .85; }
-.steps li.done .dot { border-color: var(--safe); background: var(--safe); color: #fff; }
-@keyframes pulse { 50% { box-shadow: 0 0 0 6px rgba(49,130,246,.12); } }
-.progress-hint { margin-top: 10px; font-size: .76rem; color: var(--ink-soft); text-align: center; }
+.steps li.active .num { color: var(--seal); }
+.steps li.done { opacity: .7; }
+.steps li.done .num { color: var(--safe); }
+.progress-hint { margin-top: 12px; font-size: .76rem; color: var(--ink-3); }
 
 /* ── 결과 ── */
 #result { display: none; margin-top: 30px; }
 .verdict {
-  position: relative; text-align: center; padding: 30px 18px 26px;
-  overflow: hidden;
+  position: relative; text-align: center; padding: 8px 10px 26px;
+  border-top: 2px solid var(--ink); border-bottom: 1px solid var(--rule);
+  margin-bottom: 4px;
 }
-.verdict .label { font-size: .78rem; letter-spacing: .35em; color: var(--ink-soft); margin-bottom: 6px; }
-.verdict h2 { font-family: "Gowun Batang", serif; font-size: 1.6rem; font-weight: 700; }
-.verdict .sub { font-size: .86rem; color: var(--ink-soft); margin-top: 8px; max-width: 40ch; margin-inline: auto; }
+.verdict .label { font-family: "Gowun Batang", serif; font-size: .8rem; letter-spacing: .4em; color: var(--ink-3); padding: 16px 0 4px; }
+.verdict h2 { font-family: "Gowun Batang", serif; font-size: 1.7rem; font-weight: 700; }
+.verdict .sub { font-size: .87rem; color: var(--ink-2); margin: 10px auto 0; max-width: 42ch; line-height: 1.7; }
 .stamp {
-  position: absolute; top: 14px; right: 14px;
-  width: 78px; height: 78px; border-radius: 50%;
-  border: 3px solid currentColor;
-  box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 3.5px currentColor;
+  position: absolute; top: 16px; right: 6px;
+  width: 72px; height: 72px; border-radius: 4px;
+  border: 2.5px solid currentColor;
   display: grid; place-items: center;
-  font-family: "Gowun Batang", serif; font-weight: 700; font-size: 1.05rem;
-  letter-spacing: .1em;
-  transform: rotate(12deg) scale(3); opacity: 0;
+  font-family: "Gowun Batang", serif; font-weight: 700; font-size: 1.1rem;
+  letter-spacing: .08em;
+  transform: rotate(9deg) scale(2.6); opacity: 0;
   mix-blend-mode: multiply;
 }
-.stamp.in { animation: stamp .45s cubic-bezier(.2,1.4,.4,1) forwards; }
-@keyframes stamp {
-  to { transform: rotate(-11deg) scale(1); opacity: .92; }
-}
-.v-high { color: var(--risk-high); }
-.v-medium { color: var(--risk-medium); }
-.v-low { color: var(--risk-low); }
+.stamp.in { animation: stamp .5s cubic-bezier(.2,1.3,.4,1) forwards; }
+@keyframes stamp { to { transform: rotate(-7deg) scale(1); opacity: .9; } }
+.v-high { color: var(--high); }
+.v-medium { color: var(--medium); }
+.v-low { color: var(--low); }
 .v-none { color: var(--safe); }
 
 .section-title {
-  font-size: .8rem; font-weight: 700; letter-spacing: .14em;
-  color: var(--ink-soft); margin: 26px 0 12px;
-  display: flex; align-items: center; gap: 10px;
+  font-family: "Gowun Batang", serif; font-size: .96rem; font-weight: 700;
+  color: var(--ink); margin: 30px 0 14px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule);
 }
-.section-title::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 
-.copy-view { padding: 18px; font-size: .98rem; line-height: 1.9; word-break: break-all; }
+.copy-view { padding: 4px 2px; font-size: .97rem; line-height: 2.0; word-break: keep-all; color: var(--ink); }
 mark {
   background: transparent; color: inherit; font-weight: 600;
-  padding: 1px 2px; border-radius: 3px;
+  padding-bottom: 1px;
   box-decoration-break: clone; -webkit-box-decoration-break: clone;
 }
-mark.m-high   { background: rgba(196,48,43,.16);  box-shadow: inset 0 -2px 0 var(--risk-high); }
-mark.m-medium { background: rgba(217,122,26,.16); box-shadow: inset 0 -2px 0 var(--risk-medium); }
-mark.m-low    { background: rgba(184,154,46,.18); box-shadow: inset 0 -2px 0 var(--risk-low); }
+mark.m-high   { border-bottom: 2px solid var(--high); }
+mark.m-medium { border-bottom: 2px solid var(--medium); }
+mark.m-low    { border-bottom: 2px solid var(--low); }
 
-.vio { margin-bottom: 14px; overflow: hidden; }
-.vio-head { display: flex; align-items: flex-start; gap: 10px; padding: 15px 16px 0; }
-.badge {
-  flex: none; font-size: .68rem; font-weight: 800; letter-spacing: .08em;
-  padding: 4px 9px; border-radius: 999px; color: #fff; margin-top: 2px;
+.vio { padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.vio:first-child { border-top: 1px solid var(--rule); }
+.vio-head { display: flex; align-items: baseline; gap: 11px; margin-bottom: 9px; }
+.seal-mark {
+  flex: none; font-size: .72rem; font-weight: 700; letter-spacing: .02em;
+  border: 1.5px solid currentColor; border-radius: 2px; padding: 1px 7px;
 }
-.b-high { background: var(--risk-high); }
-.b-medium { background: var(--risk-medium); }
-.b-low { background: var(--risk-low); }
-.vio-quote { font-family: "Gowun Batang", serif; font-weight: 700; font-size: 1.02rem; }
-.vio-body { padding: 10px 16px 16px; }
-.vio-type { font-size: .8rem; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.s-high { color: var(--high); }
+.s-medium { color: var(--medium); }
+.s-low { color: var(--low); }
+.vio-quote { font-family: "Gowun Batang", serif; font-weight: 700; font-size: 1.04rem; color: var(--ink); line-height: 1.5; }
+.vio-type { font-size: .86rem; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
 .vio-law {
-  display: inline-block; font-size: .76rem; color: var(--ink-soft);
-  border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px;
-  background: var(--paper); margin-bottom: 8px;
+  font-size: .77rem; color: var(--ink-3); margin-bottom: 8px;
+  padding-left: 11px; border-left: 1px solid var(--rule-strong);
 }
-.vio-reason { font-size: .85rem; color: var(--ink-soft); }
-.alts { margin-top: 12px; border-top: 1px dashed var(--line); padding-top: 12px; }
-.alts-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; color: var(--safe); margin-bottom: 8px; }
+.vio-reason { font-size: .87rem; color: var(--ink-2); line-height: 1.7; }
+.alts { margin-top: 15px; }
+.alts-label {
+  font-family: "Gowun Batang", serif; font-size: .82rem; font-weight: 700; color: var(--safe);
+  margin-bottom: 4px;
+}
+.alt-rationale { font-size: .78rem; color: var(--ink-3); margin-bottom: 10px; line-height: 1.6; }
 .alt {
-  display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  background: rgba(46,110,78,.06); border: 1px solid rgba(46,110,78,.18);
-  border-radius: 9px; padding: 9px 12px; margin-bottom: 7px;
-  font-size: .88rem; cursor: pointer;
-  transition: background .15s;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 0; border-top: 1px dotted var(--rule-strong);
+  font-size: .9rem; color: var(--ink); cursor: pointer;
 }
-.alt:active { background: rgba(46,110,78,.14); }
-.alt .copy-ico { flex: none; font-size: .7rem; font-weight: 700; color: var(--safe); letter-spacing: .04em; }
-.alt-rationale { font-size: .74rem; color: var(--ink-soft); margin: 2px 0 10px; }
+.alt:last-child { border-bottom: 1px dotted var(--rule-strong); }
+.alt:active { color: var(--safe); }
+.alt .copy-ico { flex: none; font-size: .72rem; color: var(--ink-3); letter-spacing: .02em; }
 
-.meta-line {
-  margin-top: 20px; text-align: center;
-  font-size: .72rem; color: var(--ink-soft);
+.meta-line { margin-top: 24px; text-align: center; font-size: .73rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.again {
+  display: block; width: 100%; margin-top: 18px; padding: 12px;
+  background: transparent; color: var(--ink); border: 1px solid var(--ink); border-radius: 4px;
+  font: inherit; font-weight: 600; font-size: .92rem; cursor: pointer; transition: background .15s, color .15s;
 }
-.again { display: block; width: 100%; margin-top: 18px; background: transparent; color: var(--ink); border: 1.5px solid var(--ink); box-shadow: none; }
+.again:active { background: var(--ink); color: var(--paper); }
 
 #error {
-  display: none; margin-top: 22px; padding: 16px;
-  border: 1px solid rgba(196,48,43,.35); border-radius: var(--radius);
-  background: rgba(196,48,43,.05); font-size: .88rem; color: var(--risk-high);
+  display: none; margin-top: 24px; padding: 14px 0 14px 14px;
+  border-left: 2px solid var(--seal);
+  font-size: .88rem; color: var(--ink-2); line-height: 1.7;
 }
 
-footer { margin-top: 44px; font-size: .7rem; color: #A39D8C; text-align: center; line-height: 1.7; }
-.footer-links { margin-top: 10px; }
-.footer-links a { color: var(--ink-soft); text-decoration: none; font-weight: 600; }
+footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--rule); font-size: .74rem; color: var(--ink-3); line-height: 1.8; }
+.footer-links { margin-top: 14px; display: flex; gap: 18px; flex-wrap: wrap; }
+.footer-links a { color: var(--ink-2); text-decoration: none; font-weight: 600; }
 .footer-links a:hover { color: var(--ink); text-decoration: underline; }
-.terms-agree { font-size: .74rem; color: var(--ink-soft); text-align: center; margin-top: 12px; }
-.terms-agree a { color: var(--accent); text-decoration: none; }
 
 .toast {
-  position: fixed; left: 50%; bottom: calc(28px + env(safe-area-inset-bottom));
-  transform: translateX(-50%) translateY(20px);
+  position: fixed; left: 50%; bottom: calc(30px + env(safe-area-inset-bottom));
+  transform: translateX(-50%) translateY(16px);
   background: var(--ink); color: var(--paper);
-  font-size: .82rem; font-weight: 600;
-  padding: 10px 18px; border-radius: 999px;
+  font-size: .82rem; font-weight: 500;
+  padding: 10px 20px; border-radius: 3px;
   opacity: 0; pointer-events: none; transition: all .25s;
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* 등장 모션 */
 .reveal { animation: rise .5s cubic-bezier(.2,.8,.3,1) both; }
-@keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+@keyframes rise { from { opacity: 0; transform: translateY(12px); } }
 
-/* ── 인증 영역 ── */
-header { justify-content: flex-start; }
-.auth-area { margin-left: auto; display: flex; align-items: center; gap: 10px; flex: none; }
-.auth-btn {
-  border: 1.5px solid var(--ink); background: transparent; color: var(--ink);
-  font: inherit; font-size: .82rem; font-weight: 700; cursor: pointer;
-  padding: 7px 14px; border-radius: 10px; transition: background .15s, color .15s;
-}
-.auth-btn:active { background: var(--ink); color: var(--paper); }
-.user-chip { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; line-height: 1.2; }
-.user-chip .email { font-size: .76rem; font-weight: 600; color: var(--ink); max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.user-chip .logout { font-size: .68rem; color: var(--seal-red); cursor: pointer; }
-.usage-badge {
-  font-size: .72rem; font-weight: 700; color: var(--safe);
-  background: rgba(46,110,78,.08); border: 1px solid rgba(46,110,78,.2);
-  padding: 4px 9px; border-radius: 999px; white-space: nowrap;
-}
-.usage-badge.exhausted { color: var(--seal-red); background: rgba(196,48,43,.08); border-color: rgba(196,48,43,.25); }
-
-/* ── 인증 모달 ── */
+/* ── 인증 출입(모달) ── */
 .modal-overlay {
-  position: fixed; inset: 0; background: rgba(28,43,69,.45);
+  position: fixed; inset: 0; background: rgba(35,40,46,.42);
   display: none; align-items: center; justify-content: center; z-index: 50;
-  padding: 20px; backdrop-filter: blur(2px);
+  padding: 22px;
 }
-.modal-overlay.open { display: flex; animation: rise .25s ease both; }
+.modal-overlay.open { display: flex; animation: rise .22s ease both; }
 .modal {
-  width: 100%; max-width: 380px; background: var(--paper);
-  border: 1px solid var(--line); border-radius: 18px; padding: 24px;
-  box-shadow: 0 20px 60px -20px rgba(28,43,69,.5);
+  width: 100%; max-width: 372px; background: var(--paper-card);
+  border: 1px solid var(--rule-strong); border-radius: 5px; padding: 26px;
+  box-shadow: 0 16px 48px -24px rgba(35,40,46,.55);
 }
-.modal h3 { font-family: "Gowun Batang", serif; font-size: 1.25rem; margin-bottom: 4px; }
-.modal .modal-sub { font-size: .8rem; color: var(--ink-soft); margin-bottom: 18px; }
-.tabs { display: flex; gap: 6px; margin-bottom: 18px; background: var(--paper-deep); padding: 4px; border-radius: 12px; }
+.modal-close { float: right; font-size: 1.4rem; color: var(--ink-3); cursor: pointer; line-height: 1; margin: -6px -6px 0 0; }
+.modal h3 { font-family: "Gowun Batang", serif; font-size: 1.3rem; color: var(--ink); margin-bottom: 5px; }
+.modal-sub { font-size: .82rem; color: var(--ink-3); margin-bottom: 20px; line-height: 1.6; }
+.tabs { display: flex; margin-bottom: 20px; border-bottom: 1px solid var(--rule); }
 .tab {
-  flex: 1; text-align: center; padding: 9px; font-size: .85rem; font-weight: 700;
-  border: 0; background: transparent; color: var(--ink-soft); cursor: pointer; border-radius: 9px;
-  transition: background .15s, color .15s;
+  flex: 1; text-align: center; padding: 10px 0 11px; font-size: .88rem; font-weight: 600;
+  border: 0; border-bottom: 2px solid transparent; background: transparent;
+  color: var(--ink-3); cursor: pointer; margin-bottom: -1px; transition: color .15s, border-color .15s;
 }
-.tab.active { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(28,43,69,.1); }
-.field { margin-bottom: 12px; }
-.field label { display: block; font-size: .76rem; font-weight: 700; color: var(--ink-soft); margin-bottom: 5px; }
+.tab.active { color: var(--ink); border-bottom-color: var(--ink); }
+.field { margin-bottom: 14px; }
+.field label { display: block; font-size: .77rem; font-weight: 600; color: var(--ink-2); margin-bottom: 6px; }
 .field input {
-  width: 100%; border: 1.5px solid var(--line); border-radius: 10px;
+  width: 100%; border: 1px solid var(--rule-strong); border-radius: 4px;
   padding: 11px 12px; font: inherit; font-size: .92rem; background: #fff; color: var(--ink);
+  transition: border-color .15s;
 }
-.field input:focus { outline: none; border-color: var(--accent); }
+.field input:focus { outline: none; border-color: var(--ink); }
 .modal-btn {
-  width: 100%; border: 0; border-radius: 12px; background: var(--ink); color: var(--paper);
-  font: inherit; font-weight: 700; font-size: .92rem; padding: 13px; cursor: pointer; margin-top: 6px;
+  width: 100%; border: 0; border-radius: 4px; background: var(--ink); color: var(--paper);
+  font: inherit; font-weight: 600; font-size: .92rem; padding: 13px; cursor: pointer; margin-top: 8px;
   transition: transform .12s;
 }
-.modal-btn:active { transform: scale(.98); }
-.modal-btn:disabled { background: #B8B2A2; }
-.modal-error { font-size: .8rem; color: var(--seal-red); margin-top: 10px; min-height: 1.2em; text-align: center; }
-.modal-close { float: right; font-size: 1.3rem; color: var(--ink-soft); cursor: pointer; line-height: 1; margin: -4px -4px 0 0; }
-.gate-hint { font-size: .78rem; color: var(--ink-soft); margin-top: 8px; }
-.gate-hint b { color: var(--accent); cursor: pointer; }
+.modal-btn:active { transform: translateY(1px); }
+.modal-btn:disabled { background: #ACA593; }
+.modal-error { font-size: .8rem; color: var(--seal); margin-top: 11px; min-height: 1.2em; text-align: center; }
+.terms-agree { font-size: .74rem; color: var(--ink-3); text-align: center; margin-top: 14px; line-height: 1.6; }
+.terms-agree a { color: var(--ink-2); text-decoration: underline; text-underline-offset: 2px; }
 </style>
 </head>
 <body>
@@ -298,12 +277,11 @@ header { justify-content: flex-start; }
 
   <header>
     <div class="emblem">審</div>
-    <div>
+    <div class="title-box">
       <h1>광고 카피 심의소</h1>
       <p>식약처 표시·광고 규정 AI 사전 심의</p>
     </div>
     <div class="auth-area" id="auth-area">
-      <!-- 미로그인: 로그인 버튼 / 로그인: 이메일 + 로그아웃 -->
       <button class="auth-btn" id="login-open" style="display:none">로그인</button>
       <span class="user-chip" id="user-chip" style="display:none">
         <span class="email" id="user-email"></span>
@@ -311,35 +289,34 @@ header { justify-content: flex-start; }
       </span>
     </div>
   </header>
+  <div class="rule-double"></div>
 
-  <p class="notice">게시 <strong>전</strong>에 검사하세요. 위반 1건의 행정처분이 광고비보다 비쌉니다.</p>
+  <p class="notice">게시하기 <b>전</b>에 검토하십시오. 위반 한 건의 행정처분이 광고비보다 큽니다.</p>
 
-  <div class="card input-card">
-    <div class="input-head">
-      <label for="copy">광고 카피 원문</label>
-      <span class="usage-badge" id="usage-badge" style="display:none"></span>
-    </div>
-    <textarea id="copy" maxlength="5000" placeholder="예) 이 유산균만 먹으면 아토피가 완치되고 면역력이 폭발적으로 증가합니다."></textarea>
-    <div class="input-foot">
-      <span class="count"><span id="cnt">0</span> / 5,000</span>
-      <button class="btn" id="run">심의 요청</button>
-    </div>
+  <div class="label-row">
+    <span class="field-label">광고 카피 원문</span>
+    <span class="usage-badge" id="usage-badge" style="display:none"></span>
+  </div>
+  <textarea id="copy" maxlength="5000" placeholder="예) 이 유산균만 먹으면 아토피가 완치되고 면역력이 폭발적으로 증가합니다."></textarea>
+  <div class="input-foot">
+    <span class="count"><span id="cnt">0</span> / 5,000</span>
+    <button class="btn" id="run">심의 요청</button>
   </div>
 
   <div id="progress">
     <ul class="steps">
-      <li data-step="0"><span class="dot">1</span>근거 규정 검색 — 법령·고시 1,300여 조항 대조</li>
-      <li data-step="1"><span class="dot">2</span>검사관 심의 — 위반 소지 구절 식별</li>
-      <li data-step="2"><span class="dot">3</span>비판관 교차 검증 — 인용 조항 실재성 확인</li>
-      <li data-step="3"><span class="dot">4</span>교정관 작성 — 안전한 대체 문구 제안</li>
+      <li data-step="0"><span class="num">一</span>근거 규정 검색 — 법령·고시 1,300여 조항 대조</li>
+      <li data-step="1"><span class="num">二</span>검사관 심의 — 위반 소지 구절 식별</li>
+      <li data-step="2"><span class="num">三</span>비판관 교차 검증 — 인용 조항 실재성 확인</li>
+      <li data-step="3"><span class="num">四</span>교정관 작성 — 안전한 대체 문구 제안</li>
     </ul>
-    <p class="progress-hint">3개 AI 에이전트가 순차 심의합니다 · 보통 30초~1분</p>
+    <p class="progress-hint">세 단계 심의를 순차로 진행합니다. 보통 30초에서 1분이 걸립니다.</p>
   </div>
 
   <div id="error"></div>
 
   <div id="result">
-    <div class="card verdict">
+    <div class="verdict">
       <div class="stamp" id="stamp">심의</div>
       <p class="label">심 의 결 과</p>
       <h2 id="verdict-title"></h2>
@@ -348,7 +325,7 @@ header { justify-content: flex-start; }
 
     <div id="copy-section">
       <p class="section-title">원문 대조</p>
-      <div class="card copy-view" id="copy-view"></div>
+      <div class="copy-view" id="copy-view"></div>
     </div>
 
     <div id="vio-section">
@@ -357,15 +334,14 @@ header { justify-content: flex-start; }
     </div>
 
     <p class="meta-line" id="meta-line"></p>
-    <button class="btn again" id="again">다른 카피 심의하기</button>
+    <button class="again" id="again">다른 카피 심의하기</button>
   </div>
 
   <footer>
-    본 결과는 AI 사전 검토 의견으로 법적 효력이 없으며,<br>
-    최종 판단은 식약처·자율심의기구의 심의를 따릅니다.
+    본 결과는 AI 사전 검토 의견으로 법적 효력이 없으며, 최종 판단은 식품의약품안전처 및 자율심의기구의 심의를 따릅니다.
     <div class="footer-links">
-      <a href="/api/v1/legal.html#terms">이용약관</a> ·
-      <a href="/api/v1/legal.html#privacy">개인정보처리방침</a> ·
+      <a href="/api/v1/legal.html#terms">이용약관</a>
+      <a href="/api/v1/legal.html#privacy">개인정보처리방침</a>
       <a href="/api/v1/legal.html#disclaimer">면책 고지</a>
     </div>
   </footer>
@@ -375,7 +351,7 @@ header { justify-content: flex-start; }
   <div class="modal">
     <span class="modal-close" id="modal-close">&times;</span>
     <h3 id="modal-title">로그인</h3>
-    <p class="modal-sub" id="modal-sub">로그인하면 매월 무료 심의를 이용할 수 있어요.</p>
+    <p class="modal-sub" id="modal-sub">로그인하면 매월 무료 심의를 이용할 수 있습니다.</p>
     <div class="tabs">
       <button class="tab active" id="tab-login" data-mode="login">로그인</button>
       <button class="tab" id="tab-signup" data-mode="signup">회원가입</button>
@@ -391,12 +367,12 @@ header { justify-content: flex-start; }
       </div>
       <button type="submit" class="modal-btn" id="auth-submit">로그인</button>
       <p class="modal-error" id="modal-error"></p>
-      <p class="terms-agree">가입 시 <a href="/api/v1/legal.html" target="_blank" rel="noopener">이용약관·개인정보처리방침</a>에 동의합니다.</p>
+      <p class="terms-agree">가입 시 <a href="/api/v1/legal.html" target="_blank" rel="noopener">이용약관과 개인정보처리방침</a>에 동의합니다.</p>
     </form>
   </div>
 </div>
 
-<div class="toast" id="toast">대체 문구를 복사했어요</div>
+<div class="toast" id="toast">대체 문구를 복사했습니다</div>
 
 <script>
 (function () {
@@ -407,19 +383,19 @@ header { justify-content: flex-start; }
   const RISK_SUB = {
     high: '이대로 게시하면 행정처분 가능성이 높습니다.',
     medium: '일부 표현의 수정을 권합니다.',
-    low: '대체로 무난하나 권고 사항을 확인하세요.',
+    low: '대체로 무난하나 권고 사항을 확인하십시오.',
     none: '제공된 규정 기준 위반 소지를 찾지 못했습니다.'
   };
 
   copyEl.addEventListener('input', () => { cnt.textContent = copyEl.value.length.toLocaleString(); });
 
-  // ── 진행 연출 (응답 도착까지 단계 시뮬레이션) ──
+  // ── 진행 연출 ──
   let stepTimers = [];
   function startProgress() {
     progress.style.display = 'block';
     const lis = progress.querySelectorAll('li');
     lis.forEach(li => li.classList.remove('active', 'done'));
-    const plan = [0, 4000, 18000, 32000]; // 단계 진입 시점(ms) — 평균 응답 ~40s 기준
+    const plan = [0, 4000, 18000, 32000];
     stepTimers = plan.map((t, i) => setTimeout(() => {
       lis.forEach((li, j) => {
         li.classList.toggle('done', j < i);
@@ -433,10 +409,9 @@ header { justify-content: flex-start; }
     setTimeout(() => { progress.style.display = 'none'; }, 350);
   }
 
-  // ── 하이라이팅 (공백·중점 변형에 관대한 매칭) ──
+  // ── 하이라이팅 ──
   function esc(s) { return s.replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
   function flexPattern(quote) {
-    // 문자 단위로 나눠 사이 공백을 허용, 정규식 특수문자 이스케이프
     return quote.trim().split('').map(ch => {
       if (/\s/.test(ch)) return '\\s*';
       return ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -449,7 +424,7 @@ header { justify-content: flex-start; }
       try {
         const re = new RegExp(flexPattern(esc(v.quote)), '');
         html = html.replace(re, m => `<mark class="m-${v.risk_level || 'medium'}" data-v="${i}">${m}</mark>`);
-      } catch (e) { /* 매칭 실패 시 하이라이팅 생략 */ }
+      } catch (e) { /* 매칭 실패 시 생략 */ }
     });
     return html;
   }
@@ -463,7 +438,7 @@ header { justify-content: flex-start; }
     const v = RISK_KO[risk] ? risk : 'medium';
 
     const verdictCard = $('.verdict');
-    verdictCard.className = 'card verdict reveal v-' + v;
+    verdictCard.className = 'verdict reveal v-' + v;
     $('#verdict-title').textContent = RISK_KO[v];
     $('#verdict-sub').textContent = audit.summary || RISK_SUB[v];
 
@@ -482,32 +457,30 @@ header { justify-content: flex-start; }
       const rl = (vio.risk_level || 'medium').toLowerCase();
       const rem = remediations.find(r => r.violation_index === i);
       const card = document.createElement('div');
-      card.className = 'card vio reveal';
-      card.style.animationDelay = (0.08 * i + 0.15) + 's';
+      card.className = 'vio reveal';
+      card.style.animationDelay = (0.07 * i + 0.12) + 's';
       card.innerHTML = `
         <div class="vio-head">
-          <span class="badge b-${rl}">${(RISK_KO[rl] || rl).replace(' 필요','')}</span>
+          <span class="seal-mark s-${rl}">${(RISK_KO[rl] || rl).replace(' 필요','')}</span>
           <span class="vio-quote">“${esc(vio.quote || '')}”</span>
         </div>
-        <div class="vio-body">
-          <p class="vio-type">${esc(vio.violation_type || '')}</p>
-          <span class="vio-law">근거 · ${esc(vio.law_name || '')} ${esc(vio.article || '')}</span>
-          <p class="vio-reason">${esc(vio.reasoning || '')}</p>
-          ${rem && rem.alternatives && rem.alternatives.length ? `
-            <div class="alts">
-              <p class="alts-label">✓ 이렇게 바꿔보세요 (탭하면 복사)</p>
-              ${rem.rationale ? `<p class="alt-rationale">${esc(rem.rationale)}</p>` : ''}
-              ${rem.alternatives.map(a => `
-                <div class="alt" data-text="${esc(a)}"><span>${esc(a)}</span><span class="copy-ico">복사</span></div>
-              `).join('')}
-            </div>` : ''}
-        </div>`;
+        <p class="vio-type">${esc(vio.violation_type || '')}</p>
+        <p class="vio-law">${esc(vio.law_name || '')} ${esc(vio.article || '')}</p>
+        <p class="vio-reason">${esc(vio.reasoning || '')}</p>
+        ${rem && rem.alternatives && rem.alternatives.length ? `
+          <div class="alts">
+            <p class="alts-label">대체 문구</p>
+            ${rem.rationale ? `<p class="alt-rationale">${esc(rem.rationale)}</p>` : ''}
+            ${rem.alternatives.map(a => `
+              <div class="alt" data-text="${esc(a)}"><span>${esc(a)}</span><span class="copy-ico">복사</span></div>
+            `).join('')}
+          </div>` : ''}`;
       list.appendChild(card);
     });
     $('#vio-section').style.display = violations.length ? 'block' : 'none';
 
     $('#meta-line').textContent =
-      `검사 ${data.iterations || 1}회차 · 교차검증 ${data.critiquePassed ? '통과' : '한도 도달'} · ${data.model || ''}`;
+      `심의 ${data.iterations || 1}회 · 교차검증 ${data.critiquePassed ? '통과' : '한도 도달'} · ${data.model || ''}`;
 
     result.style.display = 'block';
     result.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -519,7 +492,7 @@ header { justify-content: flex-start; }
     if (!alt) return;
     const text = alt.dataset.text;
     (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject())
-      .catch(() => { // WebView 폴백
+      .catch(() => {
         const ta = document.createElement('textarea');
         ta.value = text; document.body.appendChild(ta); ta.select();
         document.execCommand('copy'); ta.remove();
@@ -533,7 +506,6 @@ header { justify-content: flex-start; }
 
   // ── 인증 상태 ──
   let currentUser = null;
-
   function setLoggedIn(user) {
     currentUser = user;
     $('#login-open').style.display = 'none';
@@ -548,7 +520,6 @@ header { justify-content: flex-start; }
     $('#user-chip').style.display = 'none';
     $('#usage-badge').style.display = 'none';
   }
-
   async function checkAuth() {
     try {
       const res = await fetch('/api/v1/auth/me');
@@ -556,7 +527,6 @@ header { justify-content: flex-start; }
       else setLoggedOut();
     } catch { setLoggedOut(); }
   }
-
   async function loadUsage() {
     try {
       const res = await fetch('/api/v1/audit/usage');
@@ -586,8 +556,8 @@ header { justify-content: flex-start; }
     $('#tab-signup').classList.toggle('active', !login);
     $('#modal-title').textContent = login ? '로그인' : '회원가입';
     $('#modal-sub').textContent = login
-      ? '로그인하면 매월 무료 심의를 이용할 수 있어요.'
-      : '가입 즉시 이번 달 무료 심의가 열려요.';
+      ? '로그인하면 매월 무료 심의를 이용할 수 있습니다.'
+      : '가입 즉시 이번 달 무료 심의가 열립니다.';
     $('#auth-submit').textContent = login ? '로그인' : '가입하고 시작하기';
     $('#password').setAttribute('autocomplete', login ? 'current-password' : 'new-password');
   }
@@ -600,28 +570,26 @@ header { justify-content: flex-start; }
     const btn = $('#auth-submit');
     errEl.textContent = '';
     btn.disabled = true;
-
     try {
       if (authMode === 'signup') {
         const r = await fetch('/api/v1/auth/signup', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password })
         });
-        if (r.status === 409) { errEl.textContent = '이미 가입된 이메일이에요.'; return; }
-        if (!r.ok) { errEl.textContent = '가입에 실패했어요. 입력을 확인해 주세요.'; return; }
+        if (r.status === 409) { errEl.textContent = '이미 가입된 이메일입니다.'; return; }
+        if (!r.ok) { errEl.textContent = '가입에 실패했습니다. 입력을 확인해 주십시오.'; return; }
       }
-      // 회원가입 후 자동 로그인 / 로그인 탭이면 바로 로그인
       const lr = await fetch('/api/v1/auth/login', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });
-      if (lr.status === 401) { errEl.textContent = '이메일 또는 비밀번호가 올바르지 않아요.'; return; }
-      if (!lr.ok) { errEl.textContent = '로그인에 실패했어요. 잠시 후 다시 시도해 주세요.'; return; }
+      if (lr.status === 401) { errEl.textContent = '이메일 또는 비밀번호가 올바르지 않습니다.'; return; }
+      if (!lr.ok) { errEl.textContent = '로그인에 실패했습니다. 잠시 후 다시 시도해 주십시오.'; return; }
       setLoggedIn(await lr.json());
       closeModal();
       $('#auth-form').reset();
     } catch {
-      errEl.textContent = '네트워크 오류가 발생했어요.';
+      errEl.textContent = '네트워크 오류가 발생했습니다.';
     } finally {
       btn.disabled = false;
     }
@@ -635,7 +603,6 @@ header { justify-content: flex-start; }
   // ── 실행 ──
   async function run() {
     if (!currentUser) { openModal('login'); return; }
-
     const text = copyEl.value.trim();
     if (!text) { copyEl.focus(); return; }
 
@@ -656,7 +623,7 @@ header { justify-content: flex-start; }
       if (res.status === 429) {
         stopProgress();
         renderUsage(0);
-        errBox.innerHTML = '이번 달 무료 심의를 모두 사용했어요. 다음 달 1일에 다시 충전돼요. <br>(유료 무제한은 준비 중이에요.)';
+        errBox.textContent = '이번 달 무료 심의를 모두 사용했습니다. 매월 1일에 다시 충전되며, 유료 무제한 이용은 준비 중입니다.';
         errBox.style.display = 'block';
         return;
       }
@@ -670,7 +637,7 @@ header { justify-content: flex-start; }
       setTimeout(() => render(data), 400);
     } catch (err) {
       stopProgress();
-      errBox.textContent = '심의에 실패했어요. 잠시 후 다시 시도해 주세요. — ' + err.message;
+      errBox.textContent = '심의에 실패했습니다. 잠시 후 다시 시도해 주십시오. (' + err.message + ')';
       errBox.style.display = 'block';
     } finally {
       runBtn.disabled = false;
@@ -678,7 +645,7 @@ header { justify-content: flex-start; }
     }
   }
 
-  // ── 이벤트 바인딩 ──
+  // ── 이벤트 ──
   runBtn.addEventListener('click', run);
   $('#login-open').addEventListener('click', () => openModal('login'));
   $('#logout-btn').addEventListener('click', logout);
