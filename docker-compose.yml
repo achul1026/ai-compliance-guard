@@ -40,6 +40,50 @@ services:
       retries: 5
       start_period: 180s  # 모델 다운로드+로드 시간 고려
 
+  # D4(비용 0): BGE-reranker-v2-m3 로컬 추론 (Upstage Solar-reranker 대안).
+  # rag.reranker.provider=local 일 때 LocalBgeRerankerAdapter가 :8081/rerank 호출.
+  # CPU 전용 — `docker compose --profile reranker up` 으로 선택 기동.
+  reranker:
+    image: ghcr.io/huggingface/text-embeddings-inference:cpu-1.5
+    container_name: compliance-reranker
+    profiles: ["reranker"]
+    restart: unless-stopped
+    command: ["--model-id", "BAAI/bge-reranker-v2-m3", "--port", "80"]
+    ports:
+      - "${RERANKER_PORT:-8081}:80"
+    volumes:
+      - reranker_cache:/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:80/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 120s
+
+  # 애플리케이션 (Spring Boot). 운영 배포용 — `docker compose --profile app up` 으로 선택 기동.
+  # 시크릿은 .env 또는 배포 환경의 시크릿 매니저로 주입(application-prod.yml fail-fast).
+  app:
+    build: .
+    container_name: compliance-app
+    profiles: ["app"]
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:postgresql://postgres:5432/${DB_NAME:-compliance_db}
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET 필수}
+      APP_AES_KEY: ${APP_AES_KEY:?APP_AES_KEY 필수}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:?GEMINI_API_KEY 필수}
+      AGENT_LLM_PROVIDER: ${AGENT_LLM_PROVIDER:-gemini}
+      EMBEDDING_BGE_M3_URL: http://embedding-server:8000
+    ports:
+      - "${APP_PORT:-8080}:8080"
+
 volumes:
   postgres_data:
   hf_cache:
+  reranker_cache:

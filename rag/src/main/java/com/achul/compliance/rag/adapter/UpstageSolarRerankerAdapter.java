@@ -4,6 +4,7 @@ import com.achul.compliance.rag.port.RerankerPort;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,11 +16,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * D4: Upstage Solar-reranker 어댑터.
+ * D4: Upstage Solar-reranker 어댑터 (유료).
  * https://api.upstage.ai/v1/ranking
+ * rag.reranker.provider=upstage(기본) 일 때 활성. local 전환 시 {@link LocalBgeRerankerAdapter}.
  */
 @Slf4j
 @Component
+@ConditionalOnProperty(name = "rag.reranker.provider", havingValue = "upstage", matchIfMissing = true)
 public class UpstageSolarRerankerAdapter implements RerankerPort {
 
     private final RestTemplate restTemplate;

@@ -1,0 +1,25 @@
+# 빌드 산출물
+**/build/
+**/bin/
+.gradle/
+
+# 버전관리·IDE
+.git/
+.gitignore
+*.iml
+.idea/
+.vscode/
+
+# 시크릿·로컬
+.env
+*.log
+
+# 데이터·작업물 (이미지에 불필요)
+_workspace/
+raw/
+embedding-server/
+scripts/
+*.md
+
+# OS
+.DS_Store
