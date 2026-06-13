@@ -65,3 +65,4 @@ _workspace/law_rvs_doc.html
 # embedding-server 로컬 venv
 embedding-server/.venv/
 embedding-server/__pycache__/
+.playwright-mcp/
