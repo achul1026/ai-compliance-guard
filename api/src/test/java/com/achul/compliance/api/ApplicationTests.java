@@ -3,6 +3,7 @@ package com.achul.compliance.api;
 import com.achul.compliance.api.health.HealthController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -18,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * 풀컨텍스트 검증은 Testcontainers 기반 통합 테스트 트랙(Task #3)에서 수행한다.</p>
  */
 @WebMvcTest(HealthController.class)
+@AutoConfigureMockMvc(addFilters = false) // 시큐리티 필터는 AuthControllerTest 전담. 여기선 컨트롤러 로직만.
 class ApplicationTests {
 
     @Autowired

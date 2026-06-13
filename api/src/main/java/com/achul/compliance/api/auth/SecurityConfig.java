@@ -1,0 +1,62 @@
+package com.achul.compliance.api.auth;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+/**
+ * P3-1: Spring Security 설정 (ADR-008).
+ *
+ * <p>핵심: 기존 데모 엔드포인트(/health, /search, /audit, 정적 UI)는 공개 유지.
+ * 인증은 신규 보호 경로에만. JWT 기반이라 세션은 STATELESS, CSRF는 비활성(쿠키 SameSite + 토큰 검증으로 대체).</p>
+ */
+@Configuration
+public class SecurityConfig {
+
+    private final JwtTokenProvider tokenProvider;
+
+    public SecurityConfig(JwtTokenProvider tokenProvider) {
+        this.tokenProvider = tokenProvider;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            // JWT 쿠키 기반 — 표준 CSRF 토큰 대신 SameSite=Lax + access 토큰 서명 검증으로 방어(ADR-008 §4)
+            .csrf(AbstractHttpConfigurer::disable)
+            .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .formLogin(AbstractHttpConfigurer::disable)
+            .httpBasic(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests(auth -> auth
+                // 공개: 데모·헬스·인증 진입점·정적 리소스
+                // /error — 컨트롤러 예외(ResponseStatusException) 시 내부 포워딩 경로. 막으면 모든 에러가 401로 덮인다.
+                .requestMatchers("/health", "/actuator/**", "/error").permitAll()
+                .requestMatchers("/auth/signup", "/auth/login", "/auth/refresh", "/auth/logout").permitAll()
+                .requestMatchers("/search", "/audit").permitAll()
+                .requestMatchers("/", "/index.html", "/static/**", "/favicon.ico", "/*.html", "/*.css", "/*.js").permitAll()
+                // 관리자 전용
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                // 그 외(예: /auth/me, /auth/logout)는 인증 필요
+                .anyRequest().authenticated()
+            )
+            // 인증 실패 시 리다이렉트 대신 401 (API)
+            .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
+            .addFilterBefore(new JwtAuthenticationFilter(tokenProvider),
+                UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+}

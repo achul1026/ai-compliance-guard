@@ -66,6 +66,16 @@ agent:
       timeout-seconds: ${GEMINI_TIMEOUT_SECONDS:60}
       max-retries: ${GEMINI_MAX_RETRIES:2}
 
+# ADR-008 (P3-1): 인증/세션 — Spring Security + JWT 이중 토큰
+auth:
+  jwt:
+    # 운영은 반드시 32바이트 이상 시크릿 주입. 로컬 기본값은 개발 전용.
+    secret: ${JWT_SECRET:dev-only-insecure-secret-change-me-32bytes!!}
+    access-token-validity-minutes: ${JWT_ACCESS_MINUTES:15}
+    refresh-token-validity-days: ${JWT_REFRESH_DAYS:14}
+    # 운영(HTTPS)에서는 true — Secure 쿠키. 로컬 http는 false.
+    cookie-secure: ${JWT_COOKIE_SECURE:false}
+
 logging:
   level:
     root: INFO
