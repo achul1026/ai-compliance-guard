@@ -2,13 +2,9 @@ package com.achul.compliance.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+// JPA 스캔 설정은 JpaConfig로 분리 — @WebMvcTest 슬라이스가 entityManagerFactory를 요구하지 않도록.
 @SpringBootApplication(scanBasePackages = {"com.achul.compliance"})
-@EntityScan(basePackages = {"com.achul.compliance.infra.persistence.entity"})
-@EnableJpaRepositories(basePackages = {"com.achul.compliance.infra.persistence.repository"})
 public class Application {
 
     public static void main(String[] args) {
