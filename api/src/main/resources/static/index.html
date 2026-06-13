@@ -67,11 +67,17 @@ header { padding: 30px 0 0; display: flex; align-items: center; gap: 13px; }
 .rule-double { margin: 18px 0 0; border-top: 2px solid var(--ink); height: 3px; border-bottom: 1px solid var(--rule-strong); }
 
 .notice {
-  margin: 0 0 26px; padding: 13px 2px;
+  margin: 2px 0 28px; padding: 18px 2px 20px;
   border-bottom: 1px solid var(--rule);
-  font-size: .82rem; color: var(--ink-3); text-align: center;
+  text-align: center;
 }
-.notice b { color: var(--seal); font-weight: 700; }
+.notice .hook {
+  display: block;
+  font-family: "Gowun Batang", serif; font-size: 1.08rem; font-weight: 700;
+  color: var(--ink); line-height: 1.55; letter-spacing: -.01em;
+}
+.notice .hook b { color: var(--seal); font-weight: 700; }
+.notice .sub { display: block; font-size: .82rem; color: var(--ink-3); margin-top: 9px; }
 
 /* ── 입력 ── */
 .label-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 9px; }
@@ -291,7 +297,10 @@ footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--rule);
   </header>
   <div class="rule-double"></div>
 
-  <p class="notice">게시하기 <b>전</b>에 검토하십시오. 위반 한 건의 행정처분이 광고비보다 큽니다.</p>
+  <p class="notice">
+    <span class="hook">무심코 쓴 <b>‘완치’</b> 한 줄이 <b>과징금</b>이 됩니다.</span>
+    <span class="sub">게시하기 전, 1분이면 됩니다.</span>
+  </p>
 
   <div class="label-row">
     <span class="field-label">광고 카피 원문</span>
