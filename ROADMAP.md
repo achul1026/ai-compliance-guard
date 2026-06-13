@@ -128,9 +128,9 @@
 - [x] **P3-1. 인증/세션 보안** (2026-06-13, ADR-008)
   Spring Security + BCrypt + JWT 이중 토큰(Access 15분 / Refresh 14일, HttpOnly 쿠키, 회전·서버측 무효화). V6(users, refresh_tokens). 엔드포인트: signup/login/logout/refresh/me. `/admin/**`는 ADMIN role 보호로 전환.
   → 검증: ✅ 자동 테스트 14건(JWT 단위 6 + 시큐리티 슬라이스 8) + 실 DB 풀 플로우 E2E(회원가입→로그인→me→회전→옛 토큰 폐기→로그아웃 무효화, 데모 무손상). 분석 이력은 P3-3로 이연.
-- [ ] **P3-2. 데이터 프라이버시 강화**
-  외부 LLM 호출 시 `data_collection: false` 옵션 처리, 입력 데이터 마스킹, 분석 이력 AES-256 암호화 저장.
-  → 검증: LLM 요청 페이로드에 학습 거부 옵션 적용 확인, 저장 데이터 암호화 확인.
+- [x] **P3-2. 데이터 프라이버시 강화** (2026-06-13, ADR-009)
+  분석 이력(`audit_history`) AES-256-GCM 투명 암호화(JPA AttributeConverter, `enc1:` 포맷, 레거시 평문 호환). PII 마스킹 유틸(이메일·전화·주민번호, 로그용). LLM 학습거부는 무료 티어 불가 → "무료 티어=실고객 금지" OPERATIONS 명문화 + opt-out 설정 자리. 분석 이력 조회 API(`GET /audit/history`, 복호화).
+  → 검증: ✅ 암호화 단위 7 + 마스킹 5 + 실 DB 라운드트립(원시조회 `enc1:` 암호문·평문노출 0 → 앱조회 복호 평문). 잔여 리스크: 무료 티어 LLM 전송분은 정책으로만 방어(유료 전환 시 종결).
 - [x] **P3-3. 사용량 제한 (Free Tier)** (2026-06-13)
   로그인 Free Tier 월 5회(`app.usage.free-monthly-limit`). V7(audit_history=이력+카운터). `/audit` 로그인 필수 전환, 한도 초과 시 429. `GET /audit/usage` 잔여 조회. UI: 로그인 게이트 모달(가입/로그인) + 잔여 횟수 배지 + 429 안내.
   → 검증: ✅ 단위/슬라이스 테스트 + 실 DB E2E(미로그인 401 → 한도 내 200·잔여 감소 → 초과 429) + 브라우저 E2E(가입→심의→배지 2→1→부적합 렌더). 비로그인 무료 체험은 미도입(전환율 보고 추후).

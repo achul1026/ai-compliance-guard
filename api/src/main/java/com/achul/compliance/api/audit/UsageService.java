@@ -6,12 +6,14 @@ import com.achul.compliance.infra.persistence.repository.AuditHistoryRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 /**
  * P3-3: Free Tier 사용량 카운팅 + 분석 이력 저장.
@@ -57,6 +59,17 @@ public class UsageService {
         String risk = report.audit() == null ? null : report.audit().overallRisk();
         historyRepository.save(new AuditHistoryEntity(userId, adCopy, json, risk));
     }
+
+    /** 사용자 최근 분석 이력(복호화된 평문). adCopy는 컨버터가 자동 복호화한다. */
+    @Transactional(readOnly = true)
+    public List<HistoryItem> recentHistory(Long userId, int limit) {
+        return historyRepository
+            .findByUserIdOrderByCreatedAtDesc(userId, PageRequest.of(0, limit))
+            .map(h -> new HistoryItem(h.getId(), h.getAdCopy(), h.getOverallRisk(), h.getCreatedAt()))
+            .getContent();
+    }
+
+    public record HistoryItem(Long id, String adCopy, String overallRisk, OffsetDateTime createdAt) {}
 
     private String serialize(ComplianceReport report) {
         try {

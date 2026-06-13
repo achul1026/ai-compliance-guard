@@ -1,5 +1,6 @@
 package com.achul.compliance.infra.persistence.entity;
 
+import com.achul.compliance.infra.security.EncryptedStringConverter;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -7,7 +8,7 @@ import java.time.OffsetDateTime;
 
 /**
  * 분석 이력 + 사용량 카운터 엔티티 (P3-3, V7).
- * adCopy·reportJson은 P3-2에서 AES-256 암호화 예정.
+ * adCopy·reportJson은 AES-256-GCM으로 투명 암호화 저장(P3-2, ADR-009).
  */
 @Entity
 @Table(name = "audit_history")
@@ -20,9 +21,11 @@ public class AuditHistoryEntity {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
+    @Convert(converter = EncryptedStringConverter.class)
     @Column(name = "ad_copy", nullable = false, columnDefinition = "TEXT")
     private String adCopy;
 
+    @Convert(converter = EncryptedStringConverter.class)
     @Column(name = "report_json", nullable = false, columnDefinition = "TEXT")
     private String reportJson;
 

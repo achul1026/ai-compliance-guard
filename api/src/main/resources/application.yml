@@ -26,6 +26,10 @@ app:
   # P3-3: Free Tier 월 무료 검사 횟수
   usage:
     free-monthly-limit: ${FREE_MONTHLY_LIMIT:5}
+  # P3-2 (ADR-009): 분석 이력 AES-256-GCM 암호화 키 (base64 32바이트)
+  # 운영은 반드시 시크릿 매니저로 주입. 키 분실 = 복호화 불가이므로 백업 필수.
+  aes:
+    key: ${APP_AES_KEY:MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=}
 
 # P1-5: 임베딩 파이프라인 (RAG-002)
 pipeline:
@@ -62,6 +66,9 @@ upstage:
 agent:
   llm:
     provider: ${AGENT_LLM_PROVIDER:mock}
+    # P3-2 (ADR-009): LLM 학습 거부. 무료 티어(Gemini)는 강제 불가 → 실고객 데이터 금지 정책으로 대응.
+    # 유료 모델 전환 시 true. 현재는 정책·문서상 플래그.
+    data-collection-opt-out: ${LLM_DATA_COLLECTION_OPT_OUT:false}
     gemini:
       api-key: ${GEMINI_API_KEY:placeholder_key}
       model: ${GEMINI_MODEL:gemini-flash-latest}

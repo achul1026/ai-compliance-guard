@@ -6,6 +6,7 @@ import com.achul.compliance.api.auth.JwtAuthenticationFilter.AuthPrincipal;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -64,6 +65,12 @@ public class AuditController {
     public ResponseEntity<UsageResponse> usage(@AuthenticationPrincipal AuthPrincipal principal) {
         int remaining = usageService.remainingThisMonth(principal.userId());
         return ResponseEntity.ok(new UsageResponse(usageService.freeMonthlyLimit(), remaining));
+    }
+
+    /** P3-1/P3-2: 내 분석 이력(복호화된 평문, 최근 20건). */
+    @GetMapping("/history")
+    public ResponseEntity<List<UsageService.HistoryItem>> history(@AuthenticationPrincipal AuthPrincipal principal) {
+        return ResponseEntity.ok(usageService.recentHistory(principal.userId(), 20));
     }
 
     public record AuditRequest(
