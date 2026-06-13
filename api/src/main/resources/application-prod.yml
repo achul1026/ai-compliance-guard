@@ -18,9 +18,23 @@ spring:
     enabled: true
     locations: classpath:db/migration
 
-llm:
-  provider: ${LLM_PROVIDER}
-  api-key: ${LLM_API_KEY}
+# 운영 시크릿은 기본값 없이 환경변수 필수 — 미주입 시 기동 실패(fail-fast)로 개발용 키 유출 방지.
+auth:
+  jwt:
+    secret: ${JWT_SECRET}
+    cookie-secure: true            # HTTPS 전용 Secure 쿠키
+
+app:
+  aes:
+    key: ${APP_AES_KEY}            # 분실 = 복호화 불가. 시크릿 매니저 + 백업 필수.
+
+# ADR-006: 운영은 실제 LLM. 무료 티어 기간엔 실고객 데이터 금지(ADR-009, OPERATIONS §5).
+agent:
+  llm:
+    provider: ${AGENT_LLM_PROVIDER:gemini}
+    data-collection-opt-out: ${LLM_DATA_COLLECTION_OPT_OUT:false}
+    gemini:
+      api-key: ${GEMINI_API_KEY}
 
 logging:
   level:

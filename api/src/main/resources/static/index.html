@@ -213,6 +213,11 @@ mark.m-low    { background: rgba(184,154,46,.18); box-shadow: inset 0 -2px 0 var
 }
 
 footer { margin-top: 44px; font-size: .7rem; color: #A39D8C; text-align: center; line-height: 1.7; }
+.footer-links { margin-top: 10px; }
+.footer-links a { color: var(--ink-soft); text-decoration: none; font-weight: 600; }
+.footer-links a:hover { color: var(--ink); text-decoration: underline; }
+.terms-agree { font-size: .74rem; color: var(--ink-soft); text-align: center; margin-top: 12px; }
+.terms-agree a { color: var(--accent); text-decoration: none; }
 
 .toast {
   position: fixed; left: 50%; bottom: calc(28px + env(safe-area-inset-bottom));
@@ -358,6 +363,11 @@ header { justify-content: flex-start; }
   <footer>
     본 결과는 AI 사전 검토 의견으로 법적 효력이 없으며,<br>
     최종 판단은 식약처·자율심의기구의 심의를 따릅니다.
+    <div class="footer-links">
+      <a href="/api/v1/legal.html#terms">이용약관</a> ·
+      <a href="/api/v1/legal.html#privacy">개인정보처리방침</a> ·
+      <a href="/api/v1/legal.html#disclaimer">면책 고지</a>
+    </div>
   </footer>
 </div>
 
@@ -381,6 +391,7 @@ header { justify-content: flex-start; }
       </div>
       <button type="submit" class="modal-btn" id="auth-submit">로그인</button>
       <p class="modal-error" id="modal-error"></p>
+      <p class="terms-agree">가입 시 <a href="/api/v1/legal.html" target="_blank" rel="noopener">이용약관·개인정보처리방침</a>에 동의합니다.</p>
     </form>
   </div>
 </div>

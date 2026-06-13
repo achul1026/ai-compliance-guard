@@ -53,6 +53,14 @@ public class SecurityConfig {
                 // 그 외(예: /auth/me, /auth/logout)는 인증 필요
                 .anyRequest().authenticated()
             )
+            // 보안 헤더 (P3-5): MIME 스니핑 차단, HSTS(HTTPS 운영), 클릭재킹 차단.
+            // 앱인토스 WebView는 우리 도메인을 직접 로드(프레임 아님)하므로 SAMEORIGIN으로 충분.
+            // 토스 도메인 내 iframe 임베드가 필요해지면 입점 시 프레임 정책 재검토.
+            .headers(h -> h
+                .contentTypeOptions(c -> {})
+                .frameOptions(f -> f.sameOrigin())
+                .httpStrictTransportSecurity(hsts -> hsts.includeSubDomains(true).maxAgeInSeconds(31536000))
+            )
             // 인증 실패 시 리다이렉트 대신 401 (API)
             .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
             .addFilterBefore(new JwtAuthenticationFilter(tokenProvider),
