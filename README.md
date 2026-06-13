@@ -4,7 +4,7 @@
 
 **AI 기반 자동 컴플라이언스(준수성) 검사기** — 복잡한 규정·법률·가이드라인을 근거로 입력된 광고 카피의 법적 위반 소지를 실시간으로 검사하고, 바로 사용할 수 있는 안전한 대체 문구를 제시하는 **AI Micro-SaaS**입니다.
 
-> ⚠️ **현재 상태: 기획 단계 (Pre-development)** — 코드는 아직 없으며 [ROADMAP.md](ROADMAP.md)의 Phase 0부터 개발을 시작할 예정입니다.
+> ✅ **현재 상태 (2026-06): Phase 0~2 완료 · Phase 3 결제만 잔여** — 회원가입 → 로그인 → 광고 카피 입력 → AI 3-Agent 심의 → 위반·근거·대체문구 리포트 → 암호화 이력 저장까지 동작합니다. 결제(토스페이먼츠)는 사업자등록 후 연동 예정. 상세는 [ROADMAP.md](ROADMAP.md).
 
 ---
 
@@ -54,23 +54,43 @@
 
 | 레이어 | 기술 스택 |
 | :--- | :--- |
-| Backend | Java / Spring Boot (Gradle 멀티모듈) |
-| AI Orchestration | LangChain4j / LangGraph |
-| Database | PostgreSQL + pgvector |
-| Search | Hybrid RAG (BM25 + Vector) |
-| LLM Engine | OpenAI GPT-4o / Upstage Solar |
-| Security | JWT (HttpOnly Cookie), AES-256 |
+| Backend | Java 17 / Spring Boot (Gradle 멀티모듈: `:api :agent :rag :infra :common`) |
+| AI Orchestration | LangChain4j (LLM 계층) + 자체 상태머신 (D6, ADR-007) |
+| Database | PostgreSQL + pgvector + ParadeDB BM25 |
+| Search | Hybrid RAG (BM25 + Vector + RRF + Re-ranking) |
+| Embedding | BGE-m3 로컬 1024차원 (D3, ADR-005 — 비용 0) |
+| LLM Engine | **Gemini Flash 무료 티어** (D5, ADR-006 — 수익화 시 유료 전환) |
+| Re-ranker | Upstage Solar / BGE-reranker-v2-m3 로컬 (provider 토글) |
+| Security | Spring Security · JWT 이중 토큰(HttpOnly Cookie) · BCrypt · AES-256-GCM |
+| Frontend | 바닐라 HTML/CSS/JS (라임 플랫 디자인, 앱인토스 WebView 규격) |
+| Deploy | Dockerfile(멀티스테이지) + docker-compose |
 
 ## 🗺️ 개발 로드맵
 
-| Phase | 내용 | 기간 |
+| Phase | 내용 | 상태 |
 | :--- | :--- | :--- |
-| **Phase 0** | 프로젝트 기반 셋업 (Gradle 멀티모듈, Spring Boot, Docker/pgvector) | — |
-| **Phase 1** | 규정 데이터 구축 + Hybrid RAG 검색 API | 1~2개월 |
-| **Phase 2** | Multi-Agent 파이프라인 + 하이라이팅 대시보드 UI | 1개월 |
-| **Phase 3** | 엔터프라이즈 보안 + 수익화 런칭 | 1개월 |
+| **Phase 0** | 프로젝트 기반 셋업 (Gradle 멀티모듈, Spring Boot, Docker/pgvector) | ✅ 완료 |
+| **Phase 1** | 규정 데이터 구축 + Hybrid RAG 검색 API | ✅ 완료 (law_only Recall@10 88%) |
+| **Phase 2** | Multi-Agent 파이프라인 + 하이라이팅 대시보드 UI | ✅ 완료 (3-Agent + 심의소 UI) |
+| **Phase 3** | 엔터프라이즈 보안 + 수익화 런칭 | 🟡 인증·암호화·사용량·법적고지·배포 완료, **결제만 잔여** |
 
-단계별 상세 작업 항목과 검증 기준은 [ROADMAP.md](ROADMAP.md)를 참고하세요.
+선행 기술 결정(D1~D6)은 전원 확정됐습니다. 단계별 상세 작업 항목과 검증 기준은 [ROADMAP.md](ROADMAP.md)를 참고하세요.
+
+## 🚀 로컬 실행
+
+```bash
+# 1) DB(ParadeDB: PostgreSQL + pgvector + BM25) 기동
+docker compose up -d postgres
+
+# 2) 앱 실행 (로컬 프로파일)
+SPRING_PROFILES_ACTIVE=local ./gradlew :api:bootRun
+
+# 3) 접속
+#  랜딩  http://localhost:8080/api/v1/landing.html
+#  심의  http://localhost:8080/api/v1/index.html
+```
+
+`.env`에 `GEMINI_API_KEY`(무료, [발급](https://aistudio.google.com/apikey)), `JWT_SECRET`, `APP_AES_KEY`를 채웁니다. LLM 없이 동작만 보려면 `AGENT_LLM_PROVIDER=mock`. 운영 배포는 [DEPLOY.md](DEPLOY.md).
 
 ## 📚 프로젝트 문서
 
