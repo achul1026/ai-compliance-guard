@@ -23,6 +23,9 @@ management:
 
 app:
   version: 0.1.0-SNAPSHOT
+  # P3-3: Free Tier 월 무료 검사 횟수
+  usage:
+    free-monthly-limit: ${FREE_MONTHLY_LIMIT:5}
 
 # P1-5: 임베딩 파이프라인 (RAG-002)
 pipeline:

@@ -53,8 +53,9 @@ header { padding: 28px 0 8px; display: flex; align-items: center; gap: 12px; }
   box-shadow: inset 0 0 0 1.5px var(--paper), inset 0 0 0 2.5px rgba(196,48,43,.55);
   user-select: none;
 }
-header h1 { font-family: "Gowun Batang", serif; font-size: 1.3rem; font-weight: 700; letter-spacing: .02em; }
-header p { font-size: .78rem; color: var(--ink-soft); margin-top: 1px; }
+header > div:not(.auth-area) { min-width: 0; }
+header h1 { font-family: "Gowun Batang", serif; font-size: 1.3rem; font-weight: 700; letter-spacing: .02em; white-space: nowrap; }
+header p { font-size: .78rem; color: var(--ink-soft); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .notice {
   margin: 14px 0 22px; padding: 10px 14px;
@@ -71,9 +72,10 @@ header p { font-size: .78rem; color: var(--ink-soft); margin-top: 1px; }
   box-shadow: 0 1px 2px rgba(28,43,69,.05), 0 8px 28px -18px rgba(28,43,69,.25);
 }
 .input-card { padding: 18px; }
+.input-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
 .input-card label {
-  display: block; font-size: .82rem; font-weight: 700; letter-spacing: .06em;
-  color: var(--ink-soft); margin-bottom: 10px;
+  font-size: .82rem; font-weight: 700; letter-spacing: .06em;
+  color: var(--ink-soft);
 }
 textarea {
   width: 100%; min-height: 132px; resize: vertical;
@@ -225,6 +227,65 @@ footer { margin-top: 44px; font-size: .7rem; color: #A39D8C; text-align: center;
 /* 등장 모션 */
 .reveal { animation: rise .5s cubic-bezier(.2,.8,.3,1) both; }
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+
+/* ── 인증 영역 ── */
+header { justify-content: flex-start; }
+.auth-area { margin-left: auto; display: flex; align-items: center; gap: 10px; flex: none; }
+.auth-btn {
+  border: 1.5px solid var(--ink); background: transparent; color: var(--ink);
+  font: inherit; font-size: .82rem; font-weight: 700; cursor: pointer;
+  padding: 7px 14px; border-radius: 10px; transition: background .15s, color .15s;
+}
+.auth-btn:active { background: var(--ink); color: var(--paper); }
+.user-chip { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; line-height: 1.2; }
+.user-chip .email { font-size: .76rem; font-weight: 600; color: var(--ink); max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.user-chip .logout { font-size: .68rem; color: var(--seal-red); cursor: pointer; }
+.usage-badge {
+  font-size: .72rem; font-weight: 700; color: var(--safe);
+  background: rgba(46,110,78,.08); border: 1px solid rgba(46,110,78,.2);
+  padding: 4px 9px; border-radius: 999px; white-space: nowrap;
+}
+.usage-badge.exhausted { color: var(--seal-red); background: rgba(196,48,43,.08); border-color: rgba(196,48,43,.25); }
+
+/* ── 인증 모달 ── */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(28,43,69,.45);
+  display: none; align-items: center; justify-content: center; z-index: 50;
+  padding: 20px; backdrop-filter: blur(2px);
+}
+.modal-overlay.open { display: flex; animation: rise .25s ease both; }
+.modal {
+  width: 100%; max-width: 380px; background: var(--paper);
+  border: 1px solid var(--line); border-radius: 18px; padding: 24px;
+  box-shadow: 0 20px 60px -20px rgba(28,43,69,.5);
+}
+.modal h3 { font-family: "Gowun Batang", serif; font-size: 1.25rem; margin-bottom: 4px; }
+.modal .modal-sub { font-size: .8rem; color: var(--ink-soft); margin-bottom: 18px; }
+.tabs { display: flex; gap: 6px; margin-bottom: 18px; background: var(--paper-deep); padding: 4px; border-radius: 12px; }
+.tab {
+  flex: 1; text-align: center; padding: 9px; font-size: .85rem; font-weight: 700;
+  border: 0; background: transparent; color: var(--ink-soft); cursor: pointer; border-radius: 9px;
+  transition: background .15s, color .15s;
+}
+.tab.active { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(28,43,69,.1); }
+.field { margin-bottom: 12px; }
+.field label { display: block; font-size: .76rem; font-weight: 700; color: var(--ink-soft); margin-bottom: 5px; }
+.field input {
+  width: 100%; border: 1.5px solid var(--line); border-radius: 10px;
+  padding: 11px 12px; font: inherit; font-size: .92rem; background: #fff; color: var(--ink);
+}
+.field input:focus { outline: none; border-color: var(--accent); }
+.modal-btn {
+  width: 100%; border: 0; border-radius: 12px; background: var(--ink); color: var(--paper);
+  font: inherit; font-weight: 700; font-size: .92rem; padding: 13px; cursor: pointer; margin-top: 6px;
+  transition: transform .12s;
+}
+.modal-btn:active { transform: scale(.98); }
+.modal-btn:disabled { background: #B8B2A2; }
+.modal-error { font-size: .8rem; color: var(--seal-red); margin-top: 10px; min-height: 1.2em; text-align: center; }
+.modal-close { float: right; font-size: 1.3rem; color: var(--ink-soft); cursor: pointer; line-height: 1; margin: -4px -4px 0 0; }
+.gate-hint { font-size: .78rem; color: var(--ink-soft); margin-top: 8px; }
+.gate-hint b { color: var(--accent); cursor: pointer; }
 </style>
 </head>
 <body>
@@ -236,12 +297,23 @@ footer { margin-top: 44px; font-size: .7rem; color: #A39D8C; text-align: center;
       <h1>광고 카피 심의소</h1>
       <p>식약처 표시·광고 규정 AI 사전 심의</p>
     </div>
+    <div class="auth-area" id="auth-area">
+      <!-- 미로그인: 로그인 버튼 / 로그인: 이메일 + 로그아웃 -->
+      <button class="auth-btn" id="login-open" style="display:none">로그인</button>
+      <span class="user-chip" id="user-chip" style="display:none">
+        <span class="email" id="user-email"></span>
+        <span class="logout" id="logout-btn">로그아웃</span>
+      </span>
+    </div>
   </header>
 
   <p class="notice">게시 <strong>전</strong>에 검사하세요. 위반 1건의 행정처분이 광고비보다 비쌉니다.</p>
 
   <div class="card input-card">
-    <label for="copy">광고 카피 원문</label>
+    <div class="input-head">
+      <label for="copy">광고 카피 원문</label>
+      <span class="usage-badge" id="usage-badge" style="display:none"></span>
+    </div>
     <textarea id="copy" maxlength="5000" placeholder="예) 이 유산균만 먹으면 아토피가 완치되고 면역력이 폭발적으로 증가합니다."></textarea>
     <div class="input-foot">
       <span class="count"><span id="cnt">0</span> / 5,000</span>
@@ -287,6 +359,30 @@ footer { margin-top: 44px; font-size: .7rem; color: #A39D8C; text-align: center;
     본 결과는 AI 사전 검토 의견으로 법적 효력이 없으며,<br>
     최종 판단은 식약처·자율심의기구의 심의를 따릅니다.
   </footer>
+</div>
+
+<div class="modal-overlay" id="auth-modal">
+  <div class="modal">
+    <span class="modal-close" id="modal-close">&times;</span>
+    <h3 id="modal-title">로그인</h3>
+    <p class="modal-sub" id="modal-sub">로그인하면 매월 무료 심의를 이용할 수 있어요.</p>
+    <div class="tabs">
+      <button class="tab active" id="tab-login" data-mode="login">로그인</button>
+      <button class="tab" id="tab-signup" data-mode="signup">회원가입</button>
+    </div>
+    <form id="auth-form">
+      <div class="field">
+        <label for="email">이메일</label>
+        <input type="email" id="email" autocomplete="email" placeholder="you@example.com" required>
+      </div>
+      <div class="field">
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" autocomplete="current-password" placeholder="8자 이상" minlength="8" required>
+      </div>
+      <button type="submit" class="modal-btn" id="auth-submit">로그인</button>
+      <p class="modal-error" id="modal-error"></p>
+    </form>
+  </div>
 </div>
 
 <div class="toast" id="toast">대체 문구를 복사했어요</div>
@@ -424,8 +520,111 @@ footer { margin-top: 44px; font-size: .7rem; color: #A39D8C; text-align: center;
       });
   });
 
+  // ── 인증 상태 ──
+  let currentUser = null;
+
+  function setLoggedIn(user) {
+    currentUser = user;
+    $('#login-open').style.display = 'none';
+    $('#user-chip').style.display = 'flex';
+    $('#usage-badge').style.display = 'inline-block';
+    $('#user-email').textContent = user.email;
+    loadUsage();
+  }
+  function setLoggedOut() {
+    currentUser = null;
+    $('#login-open').style.display = 'inline-block';
+    $('#user-chip').style.display = 'none';
+    $('#usage-badge').style.display = 'none';
+  }
+
+  async function checkAuth() {
+    try {
+      const res = await fetch('/api/v1/auth/me');
+      if (res.ok) setLoggedIn(await res.json());
+      else setLoggedOut();
+    } catch { setLoggedOut(); }
+  }
+
+  async function loadUsage() {
+    try {
+      const res = await fetch('/api/v1/audit/usage');
+      if (!res.ok) return;
+      renderUsage((await res.json()).remaining);
+    } catch { /* 무시 */ }
+  }
+  function renderUsage(remaining) {
+    const badge = $('#usage-badge');
+    badge.textContent = '이번 달 무료 ' + remaining + '회';
+    badge.classList.toggle('exhausted', remaining <= 0);
+  }
+
+  // ── 인증 모달 ──
+  let authMode = 'login';
+  function openModal(mode) {
+    authMode = mode || 'login';
+    syncTab();
+    $('#modal-error').textContent = '';
+    $('#auth-modal').classList.add('open');
+    setTimeout(() => $('#email').focus(), 100);
+  }
+  function closeModal() { $('#auth-modal').classList.remove('open'); }
+  function syncTab() {
+    const login = authMode === 'login';
+    $('#tab-login').classList.toggle('active', login);
+    $('#tab-signup').classList.toggle('active', !login);
+    $('#modal-title').textContent = login ? '로그인' : '회원가입';
+    $('#modal-sub').textContent = login
+      ? '로그인하면 매월 무료 심의를 이용할 수 있어요.'
+      : '가입 즉시 이번 달 무료 심의가 열려요.';
+    $('#auth-submit').textContent = login ? '로그인' : '가입하고 시작하기';
+    $('#password').setAttribute('autocomplete', login ? 'current-password' : 'new-password');
+  }
+
+  async function submitAuth(e) {
+    e.preventDefault();
+    const email = $('#email').value.trim();
+    const password = $('#password').value;
+    const errEl = $('#modal-error');
+    const btn = $('#auth-submit');
+    errEl.textContent = '';
+    btn.disabled = true;
+
+    try {
+      if (authMode === 'signup') {
+        const r = await fetch('/api/v1/auth/signup', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        if (r.status === 409) { errEl.textContent = '이미 가입된 이메일이에요.'; return; }
+        if (!r.ok) { errEl.textContent = '가입에 실패했어요. 입력을 확인해 주세요.'; return; }
+      }
+      // 회원가입 후 자동 로그인 / 로그인 탭이면 바로 로그인
+      const lr = await fetch('/api/v1/auth/login', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      if (lr.status === 401) { errEl.textContent = '이메일 또는 비밀번호가 올바르지 않아요.'; return; }
+      if (!lr.ok) { errEl.textContent = '로그인에 실패했어요. 잠시 후 다시 시도해 주세요.'; return; }
+      setLoggedIn(await lr.json());
+      closeModal();
+      $('#auth-form').reset();
+    } catch {
+      errEl.textContent = '네트워크 오류가 발생했어요.';
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  async function logout() {
+    try { await fetch('/api/v1/auth/logout', { method: 'POST' }); } catch { /* 무시 */ }
+    setLoggedOut();
+  }
+
   // ── 실행 ──
   async function run() {
+    if (!currentUser) { openModal('login'); return; }
+
     const text = copyEl.value.trim();
     if (!text) { copyEl.focus(); return; }
 
@@ -441,7 +640,20 @@ footer { margin-top: 44px; font-size: .7rem; color: #A39D8C; text-align: center;
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ copy: text })
       });
+
+      if (res.status === 401) { stopProgress(); setLoggedOut(); openModal('login'); return; }
+      if (res.status === 429) {
+        stopProgress();
+        renderUsage(0);
+        errBox.innerHTML = '이번 달 무료 심의를 모두 사용했어요. 다음 달 1일에 다시 충전돼요. <br>(유료 무제한은 준비 중이에요.)';
+        errBox.style.display = 'block';
+        return;
+      }
       if (!res.ok) throw new Error('서버 응답 오류 (' + res.status + ')');
+
+      const remaining = res.headers.get('X-RateLimit-Remaining');
+      if (remaining !== null) renderUsage(parseInt(remaining, 10));
+
       const data = await res.json();
       stopProgress();
       setTimeout(() => render(data), 400);
@@ -455,13 +667,23 @@ footer { margin-top: 44px; font-size: .7rem; color: #A39D8C; text-align: center;
     }
   }
 
+  // ── 이벤트 바인딩 ──
   runBtn.addEventListener('click', run);
+  $('#login-open').addEventListener('click', () => openModal('login'));
+  $('#logout-btn').addEventListener('click', logout);
+  $('#modal-close').addEventListener('click', closeModal);
+  $('#auth-modal').addEventListener('click', (e) => { if (e.target.id === 'auth-modal') closeModal(); });
+  $('#tab-login').addEventListener('click', () => { authMode = 'login'; syncTab(); });
+  $('#tab-signup').addEventListener('click', () => { authMode = 'signup'; syncTab(); });
+  $('#auth-form').addEventListener('submit', submitAuth);
   $('#again').addEventListener('click', () => {
     result.style.display = 'none';
     copyEl.value = ''; cnt.textContent = '0';
     window.scrollTo({ top: 0, behavior: 'smooth' });
     copyEl.focus();
   });
+
+  checkAuth();
 })();
 </script>
 </body>

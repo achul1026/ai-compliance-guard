@@ -45,7 +45,8 @@ public class SecurityConfig {
                 // /error — 컨트롤러 예외(ResponseStatusException) 시 내부 포워딩 경로. 막으면 모든 에러가 401로 덮인다.
                 .requestMatchers("/health", "/actuator/**", "/error").permitAll()
                 .requestMatchers("/auth/signup", "/auth/login", "/auth/refresh", "/auth/logout").permitAll()
-                .requestMatchers("/search", "/audit").permitAll()
+                // /search는 공개 데모 유지. /audit은 P3-3에서 로그인 필수 + 월 5회 제한으로 전환.
+                .requestMatchers("/search").permitAll()
                 .requestMatchers("/", "/index.html", "/static/**", "/favicon.ico", "/*.html", "/*.css", "/*.js").permitAll()
                 // 관리자 전용
                 .requestMatchers("/admin/**").hasRole("ADMIN")
