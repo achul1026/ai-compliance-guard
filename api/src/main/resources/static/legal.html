@@ -3,81 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>이용약관 · 개인정보처리방침 — 광고 카피 심의소</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='26' rx='2' fill='none' stroke='%23A8392E' stroke-width='2'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-size='15' font-weight='bold' fill='%23A8392E'%3E審%3C/text%3E%3C/svg%3E">
+<title>이용약관 · 개인정보처리방침 — 심의소</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2316190E'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-size='16' font-weight='bold' fill='%23BEDD4A'%3E審%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --paper: #F6F1E7; --ink: #23282E; --ink-2: #474D54; --ink-3: #8A857A;
-  --rule: #DAD2C0; --rule-strong: #C3B9A1; --seal: #A8392E;
+  --lime: #BEDD4A; --lime-deep: #A8C93A; --lime-soft: #ECF6CE;
+  --black: #16190E; --ink: #20241A; --white: #FFFFFF; --paper: #F7F8F2;
+  --gray: #6E7464; --gray-soft: #9DA38F; --line: #E4E7DA;
+  --r-xl: 28px; --r-lg: 20px; --r-md: 14px; --r-sm: 10px;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: "Pretendard Variable", Pretendard, -apple-system, system-ui, sans-serif;
-  background: var(--paper); color: var(--ink-2); line-height: 1.78;
-  padding: 0 22px calc(60px + env(safe-area-inset-bottom));
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.022 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
-}
+body { font-family: "Pretendard Variable", Pretendard, -apple-system, system-ui, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.75; padding: 0 18px calc(60px + env(safe-area-inset-bottom)); -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
 .wrap { max-width: 680px; margin: 0 auto; }
-header { padding: 30px 0 0; display: flex; align-items: center; gap: 13px; }
-.emblem {
-  width: 40px; height: 40px; flex: none; border: 2px solid var(--seal); border-radius: 3px;
-  display: grid; place-items: center; color: var(--seal);
-  font-family: "Gowun Batang", serif; font-weight: 700; font-size: 19px;
-}
-header h1 { font-family: "Gowun Batang", serif; font-size: 1.18rem; color: var(--ink); }
-.back { margin-left: auto; font-size: .82rem; color: var(--ink-2); text-decoration: none; border: 1px solid var(--ink); padding: 6px 13px; border-radius: 3px; white-space: nowrap; }
-.rule-double { margin: 18px 0 0; border-top: 2px solid var(--ink); height: 3px; border-bottom: 1px solid var(--rule-strong); }
+header { padding: 22px 0; display: flex; align-items: center; gap: 11px; }
+.logo { display: flex; align-items: center; gap: 9px; font-weight: 800; font-size: 1.1rem; white-space: nowrap; }
+.logo .mark { width: 32px; height: 32px; border-radius: 9px; background: var(--black); color: var(--lime); display: grid; place-items: center; font-size: 1.05rem; flex: none; }
+.back { margin-left: auto; font-size: .85rem; font-weight: 700; color: var(--lime); background: var(--black); padding: 9px 16px; border-radius: var(--r-sm); white-space: nowrap; text-decoration: none; }
 
-nav.toc { display: flex; gap: 22px; margin: 20px 0 6px; flex-wrap: wrap; }
-nav.toc a { font-size: .84rem; font-weight: 600; color: var(--ink-2); text-decoration: none; }
-nav.toc a:hover { color: var(--ink); text-decoration: underline; }
-.updated { font-size: .78rem; color: var(--ink-3); margin-bottom: 22px; }
-.draft-note {
-  font-size: .82rem; color: var(--ink-2); padding: 12px 0 12px 14px;
-  border-left: 2px solid var(--seal); margin-bottom: 34px; line-height: 1.7;
-}
-.draft-note b { color: var(--seal); font-weight: 700; }
+.title-head { background: var(--lime); border-radius: var(--r-xl); padding: 34px 28px; margin-bottom: 26px; }
+.title-head h1 { font-size: 1.7rem; font-weight: 800; color: var(--black); letter-spacing: -.02em; }
+.title-head .updated { font-size: .82rem; color: var(--ink); opacity: .65; margin-top: 8px; font-weight: 600; }
+nav.toc { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
+nav.toc a { font-size: .82rem; font-weight: 700; color: var(--black); background: rgba(255,255,255,.6); border-radius: 999px; padding: 7px 14px; text-decoration: none; }
+nav.toc a:hover { background: #fff; }
 
-section { margin-bottom: 48px; }
-h2 {
-  font-family: "Gowun Batang", serif; font-size: 1.4rem; font-weight: 700; color: var(--ink);
-  border-top: 2px solid var(--ink); padding-top: 16px; margin-bottom: 20px;
-}
-h3 { font-family: "Gowun Batang", serif; font-size: 1.02rem; font-weight: 700; color: var(--ink); margin: 26px 0 9px; }
-p, li { font-size: .92rem; color: var(--ink-2); }
+.draft-note { background: var(--white); border-radius: var(--r-md); padding: 15px 17px; margin-bottom: 30px; font-size: .86rem; color: var(--ink); line-height: 1.65; }
+.draft-note b { color: var(--black); font-weight: 800; }
+
+section { margin-bottom: 40px; }
+h2 { font-size: 1.4rem; font-weight: 800; color: var(--black); letter-spacing: -.02em; margin-bottom: 18px; }
+h3 { font-size: 1.02rem; font-weight: 800; color: var(--ink); margin: 24px 0 9px; }
+p, li { font-size: .92rem; color: var(--ink); }
 ul, ol { padding-left: 20px; margin: 8px 0; }
 li { margin-bottom: 6px; }
-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: .86rem; }
-th, td { border: 1px solid var(--rule-strong); padding: 9px 11px; text-align: left; vertical-align: top; }
-th { background: rgba(195,185,161,.2); font-weight: 700; color: var(--ink); font-family: "Gowun Batang", serif; }
-.note {
-  padding: 4px 0 4px 16px; border-left: 2px solid var(--ink);
-  margin: 14px 0; font-size: .9rem; color: var(--ink-2); line-height: 1.75;
-}
-.note b { color: var(--ink); font-weight: 700; }
-strong { color: var(--ink); }
-footer { border-top: 1px solid var(--rule); padding-top: 22px; margin-top: 8px; font-size: .78rem; color: var(--ink-3); line-height: 1.7; }
+table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 14px 0; font-size: .86rem; border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); }
+th, td { padding: 10px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+th { background: var(--lime-soft); font-weight: 800; color: var(--black); }
+tr:last-child td { border-bottom: 0; }
+.note { background: var(--lime-soft); border-radius: var(--r-md); padding: 14px 17px; margin: 14px 0; font-size: .9rem; color: var(--ink); line-height: 1.7; }
+.note b { color: var(--black); font-weight: 800; }
+strong { color: var(--black); font-weight: 700; }
+footer { border-top: 1px solid var(--line); padding-top: 22px; margin-top: 10px; font-size: .8rem; color: var(--gray); line-height: 1.7; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="emblem">審</div>
-    <h1>이용약관 · 개인정보처리방침</h1>
-    <a class="back" href="/api/v1/index.html">심의소로</a>
+    <a class="logo" href="/api/v1/landing.html"><span class="mark">審</span> 심의소</a>
+    <a class="back" href="/api/v1/index.html">심의하러 가기</a>
   </header>
-  <div class="rule-double"></div>
 
-  <nav class="toc">
-    <a href="#terms">이용약관</a>
-    <a href="#privacy">개인정보처리방침</a>
-    <a href="#disclaimer">면책 고지</a>
-  </nav>
-  <p class="updated">시행일 2026년 6월 13일 (초안)</p>
+  <div class="title-head">
+    <h1>이용약관 · 개인정보처리방침</h1>
+    <p class="updated">시행일 2026년 6월 13일 (초안)</p>
+    <nav class="toc">
+      <a href="#terms">이용약관</a>
+      <a href="#privacy">개인정보처리방침</a>
+      <a href="#disclaimer">면책 고지</a>
+    </nav>
+  </div>
 
   <p class="draft-note"><b>안내.</b> 본 문서는 법무 검토 전 초안입니다. 정식 서비스 런칭 전 변호사 검토를 거쳐 확정됩니다.</p>
 
@@ -85,7 +72,7 @@ footer { border-top: 1px solid var(--rule); padding-top: 22px; margin-top: 8px; 
     <h2>이용약관</h2>
 
     <h3>제1조 (목적 및 서비스 정의)</h3>
-    <p>본 약관은 "광고 카피 심의소"(이하 "서비스")가 제공하는 AI 기반 광고 카피 표시·광고 규정 사전 검토 서비스의 이용 조건을 정합니다. 본 서비스는 건강기능식품·식품·화장품 등의 광고 문구를 식품의약품안전처 표시·광고 규정 등에 비추어 위반 소지를 AI로 사전 검토하고 대체 문구를 제안합니다.</p>
+    <p>본 약관은 "심의소"(이하 "서비스")가 제공하는 AI 기반 광고 카피 표시·광고 규정 사전 검토 서비스의 이용 조건을 정합니다. 본 서비스는 건강기능식품·식품·화장품 등의 광고 문구를 식품의약품안전처 표시·광고 규정 등에 비추어 위반 소지를 AI로 사전 검토하고 대체 문구를 제안합니다.</p>
 
     <h3>제2조 (서비스의 성격과 한계)</h3>
     <p class="note">본 서비스의 검토 결과는 <b>참고용 정보이며 법률 자문이나 행정·심의기관의 공식 심의가 아닙니다.</b> AI의 판정은 위반을 놓치거나 문제없는 표현을 위반으로 표시할 수 있습니다. 최종 책임과 판단은 이용자 본인 및 법률·심의 전문가의 검토에 있습니다.</p>
@@ -168,7 +155,7 @@ footer { border-top: 1px solid var(--rule); padding-top: 22px; margin-top: 8px; 
     <p class="note">본 서비스가 제공하는 모든 검토 결과는 <b>AI에 의한 참고용 사전 검토 의견</b>이며, 법적 효력이 없습니다. 광고의 최종 적법성 판단은 식품의약품안전처, 한국건강기능식품협회 등 관련 기관의 심의와 법률 전문가의 검토를 따라야 합니다. 본 서비스는 검토 결과의 정확성·완전성을 보증하지 않으며, 이용 결과에 대한 책임은 이용자에게 있습니다.</p>
   </section>
 
-  <footer>광고 카피 심의소 · 이용약관 및 개인정보처리방침 초안 v0.1 (2026년 6월 13일). 정식 런칭 전 법무 검토를 통해 확정됩니다.</footer>
+  <footer>심의소 · 이용약관 및 개인정보처리방침 초안 v0.1 (2026년 6월 13일). 정식 런칭 전 법무 검토를 통해 확정됩니다.</footer>
 </div>
 </body>
 </html>
