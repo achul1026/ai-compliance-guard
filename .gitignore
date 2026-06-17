@@ -66,3 +66,9 @@ _workspace/law_rvs_doc.html
 embedding-server/.venv/
 embedding-server/__pycache__/
 .playwright-mcp/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
