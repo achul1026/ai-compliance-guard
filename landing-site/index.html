@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>심의소 — 광고 올리기 전, AI가 1분 만에 심의합니다</title>
+<meta name="description" content="건강기능식품·화장품 SNS 광고의 식약처 표시·광고 규정 위반을 게시 전에 AI로 검사하고 안전한 대체 문구를 받으세요.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2316190E'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-size='16' font-weight='bold' fill='%23BEDD4A'%3E審%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root {
+  --lime: #BEDD4A;
+  --lime-deep: #A8C93A;
+  --lime-soft: #ECF6CE;
+  --lime-bright: #CDEF4A;
+  --black: #16190E;
+  --ink: #20241A;
+  --white: #FFFFFF;
+  --paper: #F7F8F2;
+  --gray: #6E7464;
+  --gray-soft: #9DA38F;
+  --line: #E4E7DA;
+  --high: #E0533C;
+  --medium: #E69138;
+  --low: #C9A93A;
+  --r-xl: 34px; --r-lg: 26px; --r-md: 16px; --r-sm: 11px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  background: var(--paper); color: var(--ink); line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all; overflow-wrap: break-word;
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+a { color: inherit; text-decoration: none; }
+.eyebrow { font-size: .8rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--lime-deep); }
+
+/* ── 내비 ── */
+nav {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(247,248,242,.85); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+nav .wrap { display: flex; align-items: center; gap: 14px; height: 64px; }
+.logo { display: flex; align-items: center; gap: 9px; font-weight: 800; font-size: 1.08rem; }
+.logo .mark { width: 30px; height: 30px; border-radius: 9px; background: var(--black); color: var(--lime); display: grid; place-items: center; font-size: 1rem; }
+nav .spacer { flex: 1; }
+.logo, .logo span { white-space: nowrap; }
+.nav-link { font-size: .9rem; font-weight: 600; color: var(--gray); padding: 8px 10px; }
+.nav-link:hover { color: var(--ink); }
+@media (max-width: 720px) {
+  .nav-link { display: none; }
+  nav .wrap { gap: 8px; }
+  .btn-ghost { padding: 10px 12px; }
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font: inherit; font-weight: 700; cursor: pointer; border: 0; white-space: nowrap;
+  transition: transform .12s, background .2s, box-shadow .2s;
+}
+.btn:active { transform: translateY(1px); }
+.btn-dark { background: var(--black); color: var(--lime); border-radius: var(--r-sm); padding: 11px 20px; font-size: .9rem; }
+.btn-dark:hover { box-shadow: 0 8px 24px -10px rgba(22,25,14,.5); }
+.btn-lime { background: var(--lime); color: var(--black); border-radius: var(--r-sm); padding: 11px 20px; font-size: .9rem; }
+.btn-ghost { background: transparent; color: var(--ink); padding: 10px 14px; font-size: .9rem; }
+
+/* ── 히어로 ── */
+.hero { position: relative; overflow: hidden; background: var(--lime); border-radius: 0 0 var(--r-xl) var(--r-xl); }
+.hero .wrap { padding: 64px 20px 72px; position: relative; z-index: 2; }
+.hero .eyebrow { color: var(--ink); opacity: .55; }
+.hero h1 {
+  font-size: clamp(2.1rem, 7vw, 3.7rem); font-weight: 800; letter-spacing: -.03em;
+  line-height: 1.12; margin: 16px 0 0; color: var(--black); max-width: 16ch;
+}
+.hero h1 .pen { background: var(--black); color: var(--lime); padding: 0 .18em; border-radius: 8px; display: inline-block; }
+.hero p.lead { font-size: clamp(1rem, 2.6vw, 1.22rem); color: var(--ink); opacity: .8; margin: 22px 0 0; max-width: 40ch; line-height: 1.65; }
+.hero-cta { display: flex; gap: 12px; margin-top: 34px; flex-wrap: wrap; }
+.btn-hero { padding: 16px 30px; font-size: 1.02rem; border-radius: var(--r-md); }
+.hero-trust { margin-top: 26px; font-size: .86rem; color: var(--ink); opacity: .65; font-weight: 600; }
+/* 추상 도형 */
+.blob { position: absolute; z-index: 1; }
+.blob.b1 { width: 220px; height: 220px; background: var(--black); border-radius: 50%; top: -70px; right: -50px; opacity: .9; }
+.blob.b2 { width: 130px; height: 130px; background: var(--lime-bright); border-radius: 50% 50% 50% 0; bottom: 40px; right: 90px; }
+.blob.b3 { width: 0; height: 0; border-left: 60px solid transparent; border-right: 60px solid transparent; border-bottom: 100px solid var(--black); bottom: -10px; right: 230px; opacity: .12; transform: rotate(20deg); }
+@media (max-width: 720px) { .blob.b1 { width: 150px; height: 150px; top: -50px; right: -40px; } .blob.b2, .blob.b3 { display: none; } }
+
+/* ── 섹션 공통 ── */
+section.block { padding: 66px 0; }
+.section-head { max-width: 30ch; margin-bottom: 36px; }
+.section-head h2 { font-size: clamp(1.6rem, 4.5vw, 2.3rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.2; margin-top: 10px; }
+.section-head p { color: var(--gray); margin-top: 12px; font-size: 1.02rem; line-height: 1.6; }
+
+/* ── 통계 띠 ── */
+.stats { background: var(--black); border-radius: var(--r-xl); padding: 40px 28px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.stat .num { font-size: clamp(2rem, 6vw, 3rem); font-weight: 800; color: var(--lime); letter-spacing: -.02em; line-height: 1; }
+.stat .cap { color: #C9CDBE; font-size: .9rem; margin-top: 10px; font-weight: 500; }
+@media (max-width: 620px) { .stats { grid-template-columns: 1fr; gap: 26px; padding: 32px 24px; } }
+
+/* ── 위험 표현 칩 ── */
+.danger-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+.danger-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--white); border: 1px solid var(--line); border-radius: 999px;
+  padding: 11px 18px; font-weight: 700; font-size: .96rem;
+}
+.danger-chip .x { width: 20px; height: 20px; border-radius: 50%; background: var(--high); color: #fff; display: grid; place-items: center; font-size: .7rem; flex: none; }
+.danger-note { margin-top: 18px; color: var(--gray); font-size: .94rem; }
+
+/* ── 작동 방식 ── */
+.steps3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.step-card { background: var(--white); border-radius: var(--r-lg); padding: 28px 24px; border: 1px solid var(--line); }
+.step-card .badge { width: 44px; height: 44px; border-radius: 13px; background: var(--lime); color: var(--black); display: grid; place-items: center; font-weight: 800; font-size: 1.15rem; }
+.step-card h3 { font-size: 1.18rem; font-weight: 800; margin: 18px 0 8px; }
+.step-card p { color: var(--gray); font-size: .94rem; line-height: 1.6; }
+@media (max-width: 760px) { .steps3 { grid-template-columns: 1fr; } }
+
+/* ── 가치 ── */
+.values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.value-card { border-radius: var(--r-lg); padding: 28px 24px; }
+.value-card.v1 { background: var(--lime); color: var(--black); }
+.value-card.v2 { background: var(--lime-soft); }
+.value-card.v3 { background: var(--black); color: var(--white); }
+.value-card .vico { font-size: 1.6rem; }
+.value-card h3 { font-size: 1.16rem; font-weight: 800; margin: 14px 0 8px; }
+.value-card p { font-size: .93rem; line-height: 1.62; opacity: .82; }
+@media (max-width: 760px) { .values { grid-template-columns: 1fr; } }
+
+/* ── 가격 ── */
+.price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
+.price-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 30px 26px; display: flex; flex-direction: column; }
+.price-card.feature { background: var(--black); color: var(--white); border-color: var(--black); transform: translateY(-8px); }
+.price-card .plan { font-weight: 800; font-size: 1.1rem; }
+.price-card .price { font-size: 2.2rem; font-weight: 800; margin: 14px 0 2px; letter-spacing: -.02em; }
+.price-card .price small { font-size: .92rem; font-weight: 600; color: var(--gray); }
+.price-card.feature .price small { color: #B9BEAF; }
+.price-card .tag { align-self: flex-start; background: var(--lime); color: var(--black); font-size: .74rem; font-weight: 800; padding: 4px 11px; border-radius: 999px; margin-bottom: 14px; }
+.price-card ul { list-style: none; margin: 20px 0; display: flex; flex-direction: column; gap: 11px; flex: 1; }
+.price-card li { font-size: .92rem; display: flex; gap: 9px; align-items: flex-start; color: var(--ink); }
+.price-card.feature li { color: #E6E9DD; }
+.price-card li .chk { color: var(--lime-deep); font-weight: 800; flex: none; }
+.price-card.feature li .chk { color: var(--lime); }
+@media (max-width: 820px) { .price-grid { grid-template-columns: 1fr; } .price-card.feature { transform: none; } }
+
+/* ── 보안 배너 ── */
+.security { background: var(--lime); border-radius: var(--r-xl); padding: 52px 36px; text-align: center; position: relative; overflow: hidden; }
+.security h2 { font-size: clamp(1.7rem, 5vw, 2.6rem); font-weight: 800; letter-spacing: -.02em; color: var(--black); line-height: 1.2; position: relative; z-index: 2; }
+.security p { margin: 18px auto 0; max-width: 46ch; color: var(--ink); opacity: .82; position: relative; z-index: 2; line-height: 1.7; }
+.security .lock { font-size: 2.4rem; position: relative; z-index: 2; }
+
+/* ── 최종 CTA ── */
+.final { background: var(--black); border-radius: var(--r-xl); padding: 60px 36px; text-align: center; }
+.final h2 { font-size: clamp(1.8rem, 5vw, 2.7rem); font-weight: 800; color: var(--white); letter-spacing: -.02em; line-height: 1.18; }
+.final p { color: #C9CDBE; margin: 16px auto 30px; max-width: 38ch; }
+.final .btn-lime { padding: 16px 34px; font-size: 1.05rem; border-radius: var(--r-md); }
+
+/* ── footer ── */
+footer.site { padding: 48px 0 60px; border-top: 1px solid var(--line); margin-top: 70px; }
+footer.site .wrap { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+footer.site .f-links { display: flex; gap: 20px; flex-wrap: wrap; }
+footer.site a { font-size: .9rem; color: var(--gray); font-weight: 600; }
+footer.site a:hover { color: var(--ink); }
+footer.site .copyright { font-size: .84rem; color: var(--gray-soft); width: 100%; }
+
+.fade { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.fade.in { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top"><span class="mark">審</span> 심의소</a>
+    <span class="spacer"></span>
+    <a class="nav-link" href="#how">작동 방식</a>
+    <a class="nav-link" href="#price">요금</a>
+    <a class="btn btn-ghost" href="https://forms.gle/y8Ni7GRFpER4LXgE7">오픈 알림</a>
+    <a class="btn btn-dark" href="https://forms.gle/y8Ni7GRFpER4LXgE7">무료로 시작</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="wrap">
+    <span class="eyebrow">AI Compliance · 식약처 광고 규정</span>
+    <h1>광고 올리기 전,<br>AI가 <span class="pen">1분</span> 만에<br>심의합니다.</h1>
+    <p class="lead">무심코 쓴 ‘완치’ 한 줄이 과징금이 됩니다. 건강기능식품·화장품 광고를 게시하기 전에 위반 소지를 검사하고, 바로 쓸 수 있는 안전한 대체 문구를 받으세요.</p>
+    <div class="hero-cta">
+      <a class="btn btn-dark btn-hero" href="https://forms.gle/y8Ni7GRFpER4LXgE7">무료로 심의 시작 →</a>
+      <a class="btn btn-ghost btn-hero" href="#how" style="border:1px solid rgba(22,25,14,.25)">어떻게 동작하나요</a>
+    </div>
+    <p class="hero-trust">회원가입 즉시 매월 5회 무료 · 카드 등록 불필요</p>
+  </div>
+</header>
+
+<main>
+  <section class="block">
+    <div class="wrap">
+      <div class="stats fade">
+        <div class="stat"><div class="num">1,300+</div><div class="cap">대조하는 법령·고시 조항</div></div>
+        <div class="stat"><div class="num">3단계</div><div class="cap">검사관 · 비판관 · 교정관 AI 심의</div></div>
+        <div class="stat"><div class="num">1분</div><div class="cap">게시 전 심의에 걸리는 시간</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:10px">
+    <div class="wrap">
+      <div class="section-head fade">
+        <span class="eyebrow">이런 표현, 위험합니다</span>
+        <h2>한 단어가 영업정지를 부릅니다</h2>
+        <p>식약처는 건강기능식품·화장품의 질병 치료·예방 표방, 의약품 오인, 거짓·과장 표현을 엄격히 금지합니다.</p>
+      </div>
+      <div class="danger-grid fade">
+        <span class="danger-chip"><span class="x">✕</span>완치 / 치료</span>
+        <span class="danger-chip"><span class="x">✕</span>면역력 강화</span>
+        <span class="danger-chip"><span class="x">✕</span>질병 예방</span>
+        <span class="danger-chip"><span class="x">✕</span>의사가 인정한</span>
+        <span class="danger-chip"><span class="x">✕</span>부작용 없는</span>
+        <span class="danger-chip"><span class="x">✕</span>만병통치</span>
+        <span class="danger-chip"><span class="x">✕</span>아토피 개선</span>
+      </div>
+      <p class="danger-note fade">심의소는 이런 표현을 게시 전에 잡아내고, 규정에 맞는 안전한 대안을 제안합니다.</p>
+    </div>
+  </section>
+
+  <section class="block" id="how">
+    <div class="wrap">
+      <div class="section-head fade">
+        <span class="eyebrow">작동 방식</span>
+        <h2>붙여넣고, 1분 기다리면 끝</h2>
+      </div>
+      <div class="steps3">
+        <div class="step-card fade">
+          <div class="badge">1</div>
+          <h3>광고 카피 입력</h3>
+          <p>검토할 SNS 광고 문구를 그대로 붙여넣습니다. 문서 작성 도구가 아니라, 검사받는 곳입니다.</p>
+        </div>
+        <div class="step-card fade">
+          <div class="badge">2</div>
+          <h3>3-Agent AI 심의</h3>
+          <p>검사관이 위반 소지를 찾고, 비판관이 인용 법령의 실재성을 교차 검증해 환각을 차단하며, 교정관이 대안을 작성합니다.</p>
+        </div>
+        <div class="step-card fade">
+          <div class="badge">3</div>
+          <h3>리포트 + 대체 문구</h3>
+          <p>위반 구절·근거 조항·위험도와 함께, 바로 복사해 쓸 수 있는 안전한 대체 문구를 받습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="section-head fade">
+        <span class="eyebrow">왜 심의소인가</span>
+        <h2>탐지로 끝나지 않습니다</h2>
+      </div>
+      <div class="values">
+        <div class="value-card v1 fade">
+          <div class="vico">◎</div>
+          <h3>환각 제로화</h3>
+          <p>비판관 AI가 인용한 근거 법령이 실제로 존재하는지 코드로 교차 검증합니다. 지어낸 근거는 통과하지 못합니다.</p>
+        </div>
+        <div class="value-card v2 fade">
+          <div class="vico">✎</div>
+          <h3>대체 문구 제안</h3>
+          <p>위험을 알려주는 데 그치지 않고, 마케팅 효과를 살린 규정 준수 문구를 함께 드립니다.</p>
+        </div>
+        <div class="value-card v3 fade">
+          <div class="vico">🔒</div>
+          <h3>데이터 보호</h3>
+          <p>분석 이력은 AES-256으로 암호화 저장됩니다. 비밀번호는 단방향 해시로만 보관합니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="price">
+    <div class="wrap">
+      <div class="section-head fade">
+        <span class="eyebrow">요금</span>
+        <h2>무료로 시작하세요</h2>
+        <p>회원가입만으로 매월 5회 무료. 카드 등록도 필요 없습니다.</p>
+      </div>
+      <div class="price-grid">
+        <div class="price-card fade">
+          <div class="plan">Free</div>
+          <div class="price">₩0<small> / 월</small></div>
+          <ul>
+            <li><span class="chk">✓</span>매월 5회 무료 심의</li>
+            <li><span class="chk">✓</span>위반 리포트 + 대체 문구</li>
+            <li><span class="chk">✓</span>분석 이력 암호화 저장</li>
+          </ul>
+          <a class="btn btn-lime" href="https://forms.gle/y8Ni7GRFpER4LXgE7">무료로 시작</a>
+        </div>
+        <div class="price-card feature fade">
+          <span class="tag">출시 예정</span>
+          <div class="plan">Lite</div>
+          <div class="price">준비 중<small></small></div>
+          <ul>
+            <li><span class="chk">✓</span>월 무제한에 가까운 심의</li>
+            <li><span class="chk">✓</span>학습에 사용되지 않는 모델</li>
+            <li><span class="chk">✓</span>우선 처리</li>
+          </ul>
+          <a class="btn btn-lime" href="https://forms.gle/y8Ni7GRFpER4LXgE7">먼저 써보기</a>
+        </div>
+        <div class="price-card fade">
+          <div class="plan">Pro · 대행사</div>
+          <div class="price">문의<small></small></div>
+          <ul>
+            <li><span class="chk">✓</span>팀·대량 심의</li>
+            <li><span class="chk">✓</span>전용 보안 옵션</li>
+            <li><span class="chk">✓</span>맞춤 규정 세트</li>
+          </ul>
+          <a class="btn btn-dark" href="#top">도입 문의</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="security fade">
+        <div class="lock">🔒</div>
+        <h2>당신의 카피는<br>유출되지 않습니다</h2>
+        <p>분석 이력은 AES-256-GCM으로 암호화되어 저장되며, 전송 구간은 HTTPS로 보호됩니다. 무료 기간에는 실제 영업비밀 입력을 권장하지 않으며, 데이터 처리 방침을 투명하게 공개합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="final fade">
+        <h2>게시 전에, 1분이면 됩니다</h2>
+        <p>지금 무료로 첫 광고 카피를 심의받아 보세요.</p>
+        <a class="btn btn-lime" href="https://forms.gle/y8Ni7GRFpER4LXgE7">무료로 심의 시작 →</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <a class="logo" href="#top"><span class="mark">審</span> 심의소</a>
+    <span class="spacer" style="flex:1"></span>
+    <div class="f-links">
+      <a href="/legal.html#terms">이용약관</a>
+      <a href="/legal.html#privacy">개인정보처리방침</a>
+      <a href="/legal.html#disclaimer">면책 고지</a>
+    </div>
+    <p class="copyright">본 서비스의 검토 결과는 AI 사전 검토 의견으로 법적 효력이 없으며, 최종 판단은 식품의약품안전처 및 자율심의기구의 심의를 따릅니다. © 2026 심의소</p>
+  </div>
+</footer>
+
+<script>
+  // 스크롤 등장
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
